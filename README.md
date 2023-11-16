@@ -4,8 +4,11 @@ Website for CS147 project: Art ^2
 > "Learn art and build your community one pixel at a time"
 
 # Usage
-to spin up the website locally run, navigate to `artSquared` and run:
+to spin up the website locally run, navigate to `artSquared/website` and run:
 `python -m http.server 9000` 
+
+to spin up the app locally download Expo go, navigate to `artSquared/app` and run:
+`npx expo start`
 
 open your brower to view the site at `http://localhost:9000/`
 
