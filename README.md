@@ -4,13 +4,24 @@ Website for CS147 project: Art ^2
 > "Learn art and build your community one pixel at a time"
 
 # Usage
+
+## website
 to spin up the website locally run, navigate to `artSquared/website` and run:
 `python -m http.server 9000` 
 
-to spin up the app locally download Expo go, navigate to `artSquared/app` and run:
-`npx expo start`
-
 open your brower to view the site at `http://localhost:9000/`
+
+
+## app
+to spin up the app locally download Expo Go from the app store, navigate to `artSquared/app` and run:
+`npm i` (this installs dependencies for the project that are specified in the package json)
+`npm start` (this starts your project)
+
+scan the QR to open the app on Expo
+
+*npm stands for node package manager and is super useful to make sure you have the right versions of all the dependencies (kinda like requirements.txt in python)
+
+
 
 # Credits
 Directive by HTML5 UP
