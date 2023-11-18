@@ -56,7 +56,8 @@ export default function App() {
 const styles = StyleSheet.create({
   screen: {
     marginTop: 40,
-    alignItems: 'center',
+    // alignItems: 'center',
+    backgroundColor: '#00FF00'
   },
   title: {
     padding: 20,
@@ -65,6 +66,7 @@ const styles = StyleSheet.create({
   menu: {
     width: 44,
     height: 44,
+    margin: 100
 
   }
 })
