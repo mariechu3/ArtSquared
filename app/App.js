@@ -9,6 +9,7 @@ import Collaborate from './screens/Collaborate.js'
 import Lessons from './screens/Lessons.js'
 import Gallery from './screens/Gallery.js'
 import Hamburger from './components/Hamburger.js'
+import Navigation from './navigation/Navigation.js'
 import { Icon } from 'react-native-elements'
 // import Icon from 'react-native-ionicons'
 
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
 
 const headerConfig = {
 
-  headerRight: (navigation) =>
+  headerLeft: (navigation) =>
     <Pressable
       android_ripple={{
         color: '#666666',
@@ -92,7 +93,7 @@ const headerConfig = {
 export default function App() {
   return (
     <NavigationContainer>
-      <Hamburger />
+      <Navigation />
     </NavigationContainer>
   )
 }

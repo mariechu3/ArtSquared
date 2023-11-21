@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import LinkFarm from '../components/Navigation'
+import LinkFarm from '../components/LinkFarm'
 
 
 export default Home = ({ navigation, route }) => (

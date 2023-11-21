@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, Text } from 'react-native'
-import LinkFarm from '../components/Navigation'
+import LinkFarm from '../components/LinkFarm'
 
 export default Gallery = ({ navigation, route }) => (
   <View style={styles.screen}>

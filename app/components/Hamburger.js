@@ -1,7 +1,7 @@
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Icon } from 'react-native-elements'
 import React, { useState } from 'react'
-import Navigation from './Navigation'
+import Navigation from './LinkFarm'
 import Home from '../screens/Home'
 import Canvas from '../screens/Canvas'
 import Lessons from '../screens/Lessons'
