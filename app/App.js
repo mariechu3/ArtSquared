@@ -1,70 +1,98 @@
 import React from 'react'
-import { Button, Text, View, StyleSheet, Image } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
+import { StyleSheet, Text, Pressable } from 'react-native'
+import Home from './screens/Home.js'
+import Share from './screens/Share.js'
+import Canvas from './screens/Canvas.js'
+import Collaborate from './screens/Collaborate.js'
+import Lessons from './screens/Lessons.js'
+import Gallery from './screens/Gallery.js'
+import Hamburger from './components/Hamburger.js'
+import { Icon } from 'react-native-elements'
+// import Icon from 'react-native-ionicons'
 
 const Root = createStackNavigator()
+// const [show, setShow] = useState(false);
 
-const Screen1 = ({ navigation, route }) => (
-  <View style={styles.screen}>
-    <Text style={styles.title}>Screen 1</Text>
-    <TouchableOpacity onPress={() => navigation.push('Screen2')}>
-      <Image style={styles.menu} source={{
-        uri: 'https://reactnative.dev/img/tiny_logo.png',
-      }} />
-    </TouchableOpacity>
 
-  </View>
-)
+// const headerConfig =
+// {
+//   headerStyle: {
+//     backgroundColor: '#D9D9D9',
+//     height: 80,
+//   },
 
-const Screen2 = ({ navigation, route }) => (
-  <View style={styles.screen}>
-    <Text style={styles.title}>Screen 2</Text>
-    <Button
-      title="Go back"
-      onPress={() => {
-        navigation.pop()
+//   headerTintColor: '#000',
+//   headerTitleStyle: {
+//     fontWeight: 'bold',
+//     paddingLeft: 24
+//   },
+// }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  icon: {
+    paddingLeft: 10
+  },
+  iconContainer: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    width: 120
+  }
+});
+
+// const headerConfig = {
+//   headerLeft: () =>
+//     <Text>left</Text>
+//   ,
+//   headerRight: ({ navigation, route }) =>
+//     <Hamburger navigation={navigation} route={route} />
+
+// };
+
+const headerConfig = {
+
+  headerRight: (navigation) =>
+    <Pressable
+      android_ripple={{
+        color: '#666666',
+        foreground: true,
+        borderless: true,
       }}
-    />
-  </View>
-)
+      onPress={() => { navigation.openDrawer() }}>
+
+      <Icon
+        style={{ paddingRight: 10 }}
+        size={44}
+        type="ionicon"
+        name={Platform.OS === "ios" ? "ios-menu" : "md-menu"}
+      />
+    </Pressable>
+
+}
+
+// export default function App() {
+//   return (
+//     <NavigationContainer>
+//       <Root.Navigator>
+//         <Root.Screen name="Home" options={{ ...headerConfig, title: "Home" }} component={Home} />
+//         <Root.Screen name="Canvas" options={{ ...headerConfig, title: "Canvas" }} component={Canvas} />
+//         <Root.Screen name="Collaborate" options={{ ...headerConfig, title: "Collaborate" }} component={Collaborate} />
+//         <Root.Screen name="Lessons" options={{ ...headerConfig, title: "Lessons" }} component={Lessons} />
+//         <Root.Screen name="Share" options={{ ...headerConfig, title: "Share" }} component={Share} />
+//         <Root.Screen name="Gallery" options={{ ...headerConfig, title: "Gallery" }} component={Gallery} />
+//       </Root.Navigator>
+//     </NavigationContainer>
+//   )
+// }
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Root.Navigator>
-        <Root.Screen name="Screen1" options={{
-          title: 'Art^2',
-          headerTitleAlign: "left",
-          headerStyle: {
-            backgroundColor: '#D9D9D9',
-            height:80,
-          },
-          headerTintColor: '#000',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-            paddingLeft: 24
-          },
-        }} component={Screen1} />
-        <Root.Screen name="Screen2" component={Screen2} />
-      </Root.Navigator>
+      <Hamburger />
     </NavigationContainer>
   )
 }
-
-const styles = StyleSheet.create({
-  screen: {
-    marginTop: 40,
-    alignItems: 'center',
-  },
-  title: {
-    padding: 20,
-    fontSize: 42,
-  },
-  menu: {
-    width: 44,
-    height: 44,
-
-  }
-})
