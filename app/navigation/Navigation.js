@@ -4,6 +4,7 @@ import Lessons from '../screens/Lessons'
 import Share from '../screens/Share'
 import Collaborate from '../screens/Collaborate'
 import Gallery from '../screens/Gallery'
+import { StyleSheet, View } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import {
@@ -12,6 +13,11 @@ import {
     DrawerItemList,
 } from '@react-navigation/drawer';
 
+const styles = StyleSheet.create({
+    menu: {
+        paddingRight: 24
+    }
+})
 
 const Drawer = createDrawerNavigator();
 
@@ -23,7 +29,7 @@ function CustomDrawerContent(props) {
     );
 }
 
-export default Hamburger = () => {
+export default Navigation = () => {
     return (
         <Drawer.Navigator
             drawerContent={(props) => <CustomDrawerContent {...props} />}
@@ -37,19 +43,19 @@ export default Hamburger = () => {
                     fontSize: 24,
                 },
                 drawerPosition: "right",
-                headerLeft: () => (<></>),
+                headerLeft: () => (<View style={{ paddingRight: 8 }}></View>),
 
-                headerRight: (props) => (<TouchableOpacity onPress={navigation.toggleDrawer}>
+                headerRight: (props) => (<TouchableOpacity style={styles.menu} onPress={navigation.toggleDrawer}>
                     <Icon size='44' name='menu' />
-                </TouchableOpacity>)
-
-
-
+                </TouchableOpacity>),
+                headerTitleAlign: "left",
+                headerTitleStyle: { fontSize: 24 },
             })}
         >
             <Drawer.Screen
                 name="Home"
                 options={{
+                    headerTitle: '',
                     title: 'Home',
                     drawerIcon: ({ focused, size }) => (
                         <Icon
@@ -59,6 +65,7 @@ export default Hamburger = () => {
                             name={Platform.OS === "ios" ? "ios-home-outline" : "md-home-outline"}
                         />
                     ),
+
                 }}
                 component={Home} />
             <Drawer.Screen
@@ -90,20 +97,6 @@ export default Hamburger = () => {
                 }}
                 component={Collaborate} />
             <Drawer.Screen
-                name="Lessons"
-                options={{
-                    title: 'Lessons',
-                    drawerIcon: ({ focused, size }) => (
-                        <Icon
-                            style={{ paddingRight: 10 }}
-                            size={36}
-                            type="ionicon"
-                            name={Platform.OS === "ios" ? "ios-book-outline" : "md-book-outline"}
-                        />
-                    ),
-                }}
-                component={Lessons} />
-            <Drawer.Screen
                 name="Share"
                 options={{
                     title: 'Share',
@@ -131,6 +124,20 @@ export default Hamburger = () => {
                     ),
                 }}
                 component={Gallery} />
+            <Drawer.Screen
+                name="Lessons"
+                options={{
+                    title: 'Lessons',
+                    drawerIcon: ({ focused, size }) => (
+                        <Icon
+                            style={{ paddingRight: 10 }}
+                            size={36}
+                            type="ionicon"
+                            name={Platform.OS === "ios" ? "ios-book-outline" : "md-book-outline"}
+                        />
+                    ),
+                }}
+                component={Lessons} />
         </Drawer.Navigator >
     );
 }

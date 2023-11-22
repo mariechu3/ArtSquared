@@ -1,26 +1,10 @@
 import React from 'react'
-import { StyleSheet, Button, Text, View } from 'react-native'
-import LinkFarm from '../components/LinkFarm'
+import Text from '../components/Text'
+import Content from '../components/Content'
 
-export default Screen3 = ({ navigation, route }) => (
-  <View style={styles.screen}>
+
+export default Lessons = () => (
+  <Content>
     <Text>Lessons</Text>
-    {/* <LinkFarm navigation={navigation} route={route}/> */}
-  </View>
+  </Content>
 )
-
-const styles = StyleSheet.create({
-  screen: {
-    marginTop: 40,
-    alignItems: 'center',
-  },
-  title: {
-    padding: 20,
-    fontSize: 42,
-  },
-  menu: {
-    width: 44,
-    height: 44,
-
-  }
-})

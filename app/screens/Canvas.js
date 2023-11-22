@@ -1,25 +1,9 @@
 import React from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import Text from '../components/Text'
+import Content from '../components/Content'
 
-export default Canvas = ({ navigation, route }) => (
-  <View style={styles.screen}>
+export default Canvas = () => (
+  <Content>
     <Text>Canvas</Text>
-    {/* <LinkFarm navigation={navigation} route={route} /> */}
-  </View>
+  </Content>
 )
-
-const styles = StyleSheet.create({
-  screen: {
-    marginTop: 40,
-    alignItems: 'center',
-  },
-  title: {
-    padding: 20,
-    fontSize: 42,
-  },
-  menu: {
-    width: 44,
-    height: 44,
-
-  }
-})
