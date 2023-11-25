@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Image, Text, TouchableOpacity } from "react-native";
 import { Icon } from 'react-native-elements'
 
-export default Friend = ({ name, picture }) => {
-    const [selected, setSelected] = useState(false)
+
+export default Friend = ({ name, picture, addFriend, removeFriend }) => {
+    const [selected, setSelected] = useState(null)
+
+    useEffect(() => {
+        if (selected === true) {
+            addFriend(name)
+        }
+        else if (selected === false) {
+            removeFriend(name)
+        }
+    }, [selected])
 
     return (
         <TouchableOpacity style={{ display: 'flex', alignItems: 'center', width: 100, position: 'relative' }} onPress={() => setSelected(!selected)}>
