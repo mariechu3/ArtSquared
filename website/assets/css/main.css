@@ -10,6 +10,8 @@
 @media screen and (max-width: 736px){
 	#team-flex { flex-wrap: wrap;  }
 	#team-flex > * { flex-basis: 100% !important;}
+	#team-flex { gap: 5vh !important; }
+	#logo {width:20% !important;}
   }
 
 html, body, div, span, applet, object,
@@ -120,7 +122,7 @@ input, select, textarea {
 		-ms-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
 		transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
 		border-bottom: dotted 1px;
-		color: #4eb980;
+		color: #402B43;
 		text-decoration: none;
 	}
 
