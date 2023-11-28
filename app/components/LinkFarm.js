@@ -1,11 +1,11 @@
 import React from 'react'
 import { Button } from 'react-native'
 
-export default Navigation = ({navigation, route}) => {
+export default LinkFarm = ({navigation, route}) => {
     return (
         <>
             <Button
-                title="Home"
+                title="Art^2"
                 onPress={() => navigation.push('Home')
                 } />
             <Button

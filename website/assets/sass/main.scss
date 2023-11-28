@@ -23,7 +23,11 @@
 		mobile:    ( 481px,   736px  ),
 		mobilep:   ( null,    480px  )
 	));
-
+	@media screen and (max-width: 736px){
+		#team-flex { flex-wrap: wrap;  }
+		#team-flex { flex-basis: 100% !important; }
+		#team-flex { gap: 5vh !important; }
+	  }
 // Reset.
 // Based on meyerweb.com/eric/tools/css/reset (v2.0 | 20110126 | License: public domain)
 
@@ -37,7 +41,7 @@
 	tfoot, thead, tr, th, td, article, aside,
 	canvas, details, embed, figure, figcaption,
 	footer, header, hgroup, menu, nav, output, ruby,
-	section, summary, time, mark, audio, video {
+	section, summary, time, mark, audio, video, button {
 		margin: 0;
 		padding: 0;
 		border: 0;
@@ -873,7 +877,7 @@
 		.image {
 			display: inline-block;
 			height: 100%;
-			overflow: hidden;
+			overflow: visible;
 			position: relative;
 			width: 50%;
 
@@ -1155,7 +1159,7 @@
 /* Main */
 
 	#main {
-		padding: 6em 0 5em 0;
+		padding: 0 0 0 0;
 		position: relative;
 		z-index: 1;
 
@@ -1165,7 +1169,7 @@
 			height: 100%;
 			left: 50%;
 			position: absolute;
-			top: 0;
+			top: -20;
 			width: 1px;
 			z-index: -1;
 		}
@@ -1207,7 +1211,7 @@
 		/* Header */
 
 			#header {
-				padding: 8em 0 16em 0;
+				padding: 5em 0 10em 0;
 
 				h1 {
 					font-size: 2.25em;
