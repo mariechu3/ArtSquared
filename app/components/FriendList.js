@@ -1,14 +1,14 @@
 import Friend from '../components/Friend'
 import images from '../Variables/Images'
-import { ScrollView, View, Text, Button, TouchableOpacity, Image } from 'react-native'
+import { ScrollView, View, Text, Image } from 'react-native'
 import React, { useState, useEffect } from 'react'
-// import Button from './Button'
+import Button from './Button'
 import Marie from '../assets/Marie.png'
 import * as SMS from 'expo-sms';
 import numbers from '../Variables/Numbers'
 
 const MarieUri = Image.resolveAssetSource(Marie).uri
-export default FriendList = () => {
+export default FriendList = ({ buttonText }) => {
     const [isAvailable, setIsAvailable] = useState(false);
 
     const [selectedFriends, setSelectedFriends] = useState(new Set())
@@ -20,6 +20,7 @@ export default FriendList = () => {
         setSelectedFriends(friends => new Set([...friends].filter(x => x !== name)))
         console.log("removeFriend:", selectedFriends)
     }
+
     useEffect(async () => {
         const isSmsAvailable = await SMS.isAvailableAsync();
         setIsAvailable(isSmsAvailable)
@@ -41,20 +42,24 @@ export default FriendList = () => {
     }
 
     return (
-        <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 20 }}>
-                <View style={{ display: 'flex', flexDirection: 'row', columnGap: '8' }}>
+        <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height:'100%' }}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 20, flex: 1 }}>
+                <View style={{ display: 'flex', flexDirection: 'row', columnGap: '8', flex: 1 }}>
                     <Friend name="Leyth" addFriend={addFriend} removeFriend={removeFriend} picture={images.Leyth} />
                     <Friend name="Marie" addFriend={addFriend} removeFriend={removeFriend} picture={images.Marie} />
                     <Friend name="David" addFriend={addFriend} removeFriend={removeFriend} picture={images.David} />
                     <Friend name="Becky" addFriend={addFriend} removeFriend={removeFriend} picture={images.Becky} />
                 </View>
             </ScrollView>
-            {/* <Button>
-                <Text style={{ fontSize: 36 }}>Next</Text>
-            </Button> */}
-            {isAvailable ? <Button title="sendSMS" onPress={() => sendSMS([...selectedFriends].map(x => numbers[x]))} /> : <Text>send SMS</Text>}
-            <Text>Selected {selectedFriends.size} friend</Text>
+
+            <View style={{ flex: 1 }}>
+                <Image source={images.Marie} />
+            </View>
+            <View style={{ flex: 1 }}>
+                {isAvailable ? <Button onPress={() => sendSMS([...selectedFriends].map(x => numbers[x]))} textSize={24}>{buttonText}</Button> : <Text>sms not available</Text>}
+                <Text>Selected {selectedFriends.size} friend</Text>
+            </View>
+
         </View>
     )
 }

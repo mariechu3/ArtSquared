@@ -6,6 +6,6 @@ import Text from '../components/Text'
 export default Share = () => (
   <Content>
     <Text>Art^2 Friends</Text>
-    <FriendList/>
+    <FriendList buttonText="Next" />
   </Content>
 )
