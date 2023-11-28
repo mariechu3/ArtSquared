@@ -4,7 +4,7 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<html>
+<html style="scroll-behavior: smooth;">
 
 <head>
 	<title>Art^2</title>
@@ -17,22 +17,31 @@
 
 	<!-- Header -->
 	<div id="header">
-		<span class="logo icon fa-paper-plane"></span>
 		<h1>Art^2</h1>
-		<span>"Learn Art and Build Your Community <br />
-			- One pixel at a time."</span>
+		<span>"Learn art and build your community <br />
+			- One pixel at a time."</span><br /><br /><br />
+		<button style="padding: 5px 10px; color: black; border: 2px solid gray; border-radius: 10px; margin: 10px"
+			onClick="document.getElementById('blurb').scrollIntoView();">Learn more</button><br />
+		<button style="padding: 5px 10px; color: black; border: 2px solid gray; border-radius: 10px; margin: 10px"
+			onClick="document.getElementById('team').scrollIntoView();">Meet
+			the team</button>
 	</div>
 
 	<!-- Main -->
 	<div id="main">
 
-		<header class="major container medium">
-			<h2>Let's walk through the process</h2>
+
+		<header class="major container medium" id="blurb">
+			<span>Art^2 allows users to learn an artistic medium with a lower barrier to entry (pixel art)
+				and collaborate with others to build a community. The app is geared towards individuals who
+				want to learn art and/or build a community post-formal education.</span>
 		</header>
+
+		<h2>Creating Art^2: The process</h2>
 
 		<div class="box alt container">
 			<section class="feature left">
-				<img class="image" src="images/interview.png" alt="" />
+				<img class="image" src="images/interview.png" alt="Interviewee drawing at a table" />
 				<div class="content">
 					<h3>Needfinding</h3>
 					<p>View our: <a href="files/Assignment 1.pdf">slides</a>
@@ -40,7 +49,7 @@
 				</div>
 			</section>
 			<section class="feature right">
-				<img class="image" src="images/experiencePrototype.jpg" alt="" />
+				<img class="image" src="images/experiencePrototype.jpg" alt="Pictures of farm drawn by interviewee" />
 				<div class="content">
 					<h3>Additional Needfinding, POVs, HMWs, Brainstorming & Experience Prototypes</h3>
 					<p>View our: <a href="files/Assignment 2.pdf">slides</a>
@@ -50,7 +59,7 @@
 			<section class="feature left">
 				<!-- <img class="image" src="images/conceptVideo.png" alt="" /></a> -->
 				<div class="image">
-					<video width="100%" controls>
+					<video width="100%" height="100%" controls>
 						<source src="files/Art^2 Concept Video.mp4" type="video/mp4">
 					</video>
 				</div>
@@ -63,224 +72,79 @@
 				</div>
 			</section>
 			<section class="feature right">
-				<img class="image" src="images/lofi.JPG" alt="" />
+				<img class="image" src="images/lofi.JPG" alt="Conducting lofi prototype testing outside" />
 				<div class="content">
 					<h3>Sketching, Low-Fi Prototyping & Usability Testing</h3>
 					<p>View our: <a href="files/Assignment 5.pdf">slides</a>
 					</p>
 				</div>
 			</section>
-			<section class="feature left">
+			<section class="feature left" style="height:auto">
+				<img style="padding: 30px 0px" class="image" src="images/heuristics.png"
+					alt="Usability heuristics chart" />
+				<div class="content">
+					<h3>Heuristic Evaluation Synthesis</h3>
+					<p>View our: <a href="files/Assignment 9.pdf">report</a>
+					</p>
+				</div>
+			</section>
+			<section class="feature right" style="height:auto">
 				<div class="image">
-					<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="100%" height="450"
+					<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="100%%" height="900"
 						src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FTwUsLeVFWRp8SHAPxEngMF%2Fart%255E2%3Ftype%3Ddesign%26node-id%3D6-220%26t%3DDh7hxxPHvQ4ff6GV-1%26scaling%3Dmin-zoom%26page-id%3D0%253A1%26starting-point-node-id%3D6%253A220%26mode%3Ddesign"
 						allowfullscreen></iframe>
 				</div>
-				<div class="content">
+				<div class="content" style="height:auto">
 					<h3>Interactive Medium-fi Prototype</h3>
 					<p> View our: <br />
 						<a href="files/Assignment 6.pdf">slides</a>
 						<br />
-						<a href="https://www.figma.com/proto/TwUsLeVFWRp8SHAPxEngMF/art%5E2?node-id=6-220&starting-point-node-id=6%3A220">Figma</a>
+						<a
+							href="https://www.figma.com/proto/TwUsLeVFWRp8SHAPxEngMF/art%5E2?node-id=6-220&starting-point-node-id=6%3A220">Figma</a>
 						<br />
 						<a href="files/README.pdf">
 							README</a>
 					</p>
 				</div>
 			</section>
+
 		</div>
 
-		<!--
-				<div class="box container">
-					<header>
-						<h2>A lot of generic stuff</h2>
-					</header>
-					<section>
-						<header>
-							<h3>Paragraph</h3>
-							<p>This is the subtitle for this particular heading</p>
-						</header>
-						<p>Phasellus nisl nisl, varius id <sup>porttitor sed pellentesque</sup> ac orci. Pellentesque
-						habitant <strong>strong</strong> tristique <b>bold</b> et netus <i>italic</i> malesuada <em>emphasized</em> ac turpis egestas. Morbi
-						leo suscipit ut. Praesent <sub>id turpis vitae</sub> turpis pretium ultricies. Vestibulum sit
-						amet risus elit.</p>
-					</section>
-					<section>
-						<header>
-							<h3>Blockquote</h3>
-						</header>
-						<blockquote>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget.
-						tempus euismod. Vestibulum ante ipsum primis in faucibus.</blockquote>
-					</section>
-					<section>
-						<header>
-							<h3>Divider</h3>
-						</header>
-						<p>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra
-						ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel. Praesent nec orci
-						facilisis leo magna. Cras sit amet urna eros, id egestas urna. Quisque aliquam
-						tempus euismod. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-						posuere cubilia.</p>
-						<hr />
-						<p>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra
-						ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel. Praesent nec orci
-						facilisis leo magna. Cras sit amet urna eros, id egestas urna. Quisque aliquam
-						tempus euismod. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-						posuere cubilia.</p>
-					</section>
-					<section>
-						<header>
-							<h3>Unordered List</h3>
-						</header>
-						<ul class="default">
-							<li>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</li>
-							<li>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</li>
-							<li>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</li>
-							<li>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</li>
-						</ul>
-					</section>
-					<section>
-						<header>
-							<h3>Ordered List</h3>
-						</header>
-						<ol class="default">
-							<li>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</li>
-							<li>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</li>
-							<li>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</li>
-							<li>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</li>
-						</ol>
-					</section>
-					<section>
-						<header>
-							<h3>Table</h3>
-						</header>
-						<div class="table-wrapper">
-							<table class="default">
-								<thead>
-									<tr>
-										<th>ID</th>
-										<th>Name</th>
-										<th>Description</th>
-										<th>Price</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>45815</td>
-										<td>Something</td>
-										<td>Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</td>
-										<td>29.99</td>
-									</tr>
-									<tr>
-										<td>24524</td>
-										<td>Nothing</td>
-										<td>Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</td>
-										<td>19.99</td>
-									</tr>
-									<tr>
-										<td>45815</td>
-										<td>Something</td>
-										<td>Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</td>
-										<td>29.99</td>
-									</tr>
-									<tr>
-										<td>24524</td>
-										<td>Nothing</td>
-										<td>Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</td>
-										<td>19.99</td>
-									</tr>
-								</tbody>
-								<tfoot>
-									<tr>
-										<td colspan="3"></td>
-										<td>100.00</td>
-									</tr>
-								</tfoot>
-							</table>
-						</div>
-					</section>
-					<section>
-						<header>
-							<h3>Form</h3>
-						</header>
-						<form method="post" action="#">
-							<div class="row">
-								<div class="col-6 col-12-mobilep">
-									<label for="name">Name</label>
-									<input class="text" type="text" name="name" id="name" value="" placeholder="John Doe" />
-								</div>
-								<div class="col-6 col-12-mobilep">
-									<label for="email">Email</label>
-									<input class="text" type="text" name="email" id="email" value="" placeholder="johndoe@domain.tld" />
-								</div>
-								<div class="col-12">
-									<label for="subject">Subject</label>
-									<input class="text" type="text" name="subject" id="subject" value="" placeholder="Enter your subject" />
-								</div>
-								<div class="col-12">
-									<label for="subject">Message</label>
-									<textarea name="message" id="message" placeholder="Enter your message" rows="6"></textarea>
-								</div>
-								<div class="col-12">
-									<ul class="actions special">
-										<li><input type="submit" value="Send" /></li>
-										<li><input type="reset" value="Reset" class="alt" /></li>
-									</ul>
-								</div>
-							</div>
-						</form>
-					</section>
-				</div>
-				-->
 
-		<!-- <footer class="major container medium">
-			<h3>Get shady with science</h3>
-			<p>Vitae natoque dictum etiam semper magnis enim feugiat amet curabitur tempor orci penatibus. Tellus erat
-				mauris ipsum fermentum etiam vivamus.</p>
-			<ul class="actions special">
-				<li><a href="#" class="button">Join our crew</a></li>
-			</ul>
-		</footer> -->
-
+		<div id="team" class="box container">
+			<h1>Meet the team</h1>
+			<div id="team-flex" style="display:flex; max-width:100%; justify-content: space-around; gap:5%">
+				<span style="flex-grow:1; flex-basis: 0; text-align: center;"><img
+						style="border-radius: 100%; width:100%" src="images/becky.jpeg" alt="">
+					<h1 id="logo"><a href="https://www.linkedin.com/in/becky-m/"
+							style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Becky M.</a></h1>
+					<p>Designer/Developer</p>
+				</span>
+				<span style="flex-grow:1; flex-basis: 0; text-align: center;"><img
+						style="border-radius: 100%; width:100%" src="images/david.png" alt="">
+					<h1 id="logo"><a href="https://www.linkedin.com/in/david-castro-ramirez-4509a5214/"
+							style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">David C.</a></h1>
+					<p>Designer</p>
+				</span>
+				<span style="flex-grow:1; flex-basis: 0; text-align: center;"><img
+						style="border-radius: 100%; width:100%" src="images/leyth.jpeg" alt="">
+					<h1 id="logo"><a href="https://www.linkedin.com/in/leyth-toubassy/"
+							style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Leyth T.</a></h1>
+					<p>Designer/Developer</p>
+				</span>
+				<span style="flex-grow:1; flex-basis: 0; text-align: center;"><img
+						style="border-radius: 100%; width:100%" src="images/marie.jpeg" alt="">
+					<h1 id="logo"><a href="https://www.linkedin.com/in/marie-chu-b53390172/"
+							style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Marie C.</a></h1>
+					<p>Designer/Developer</p>
+				</span>
+			</div>
+		</div>
 	</div>
 
 	<!-- Footer -->
-	<!-- <div id="footer">
-		<div class="container medium">
-
-			<header class="major last">
-				<h2>Questions or comments?</h2>
-			</header>
-
-			<p>Vitae natoque dictum etiam semper magnis enim feugiat amet curabitur tempor
-				orci penatibus. Tellus erat mauris ipsum fermentum etiam vivamus.</p>
-
-			<form method="post" action="#">
-				<div class="row">
-					<div class="col-6 col-12-mobilep">
-						<input type="text" name="name" placeholder="Name" />
-					</div>
-					<div class="col-6 col-12-mobilep">
-						<input type="email" name="email" placeholder="Email" />
-					</div>
-					<div class="col-12">
-						<textarea name="message" placeholder="Message" rows="6"></textarea>
-					</div>
-					<div class="col-12">
-						<ul class="actions special">
-							<li><input type="submit" value="Send Message" /></li>
-						</ul>
-					</div>
-				</div>
-			</form>
-
-			<ul class="icons">
-				<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-				<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-				<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-				<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
-				<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
-			</ul>
+	<div id="footer">
+		<div class="container small">
 
 			<ul class="copyright">
 				<li>&copy; Untitled. All rights reserved.</li>
@@ -288,7 +152,7 @@
 			</ul>
 
 		</div>
-	</div> -->
+	</div>
 
 	<!-- Scripts -->
 	<script src="assets/js/jquery.min.js"></script>
