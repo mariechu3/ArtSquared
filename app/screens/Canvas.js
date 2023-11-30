@@ -13,128 +13,143 @@ selectedTool = 0
 | 1 -> erase  |
 \*~~~~~~~~~~~*/
 
-export default Canvas = ({ navigation, route }) => (
-  <View style={styles.screen}>
-    <Text>Canvas</Text>
-    {/* <LinkFarm navigation={navigation} route={route} /> */}
-    <DrawingCanvas/>
-  </View>
-)
+export default Canvas = ({ navigation, route }) => {
+  const [canvasData, setCanvasData] = useState(new Array(new Array))
 
-
-_onColorButtonPress = () => {
-  selectedColor = "#ff0000"
-}
-
-
-_onDrawButtonPress = () => {
-  selectedTool = 0
-}
-
-
-_onEraseButtonPress = () => {
-  selectedTool = 1
-}
-
-
-function Pixel() {
-  const [curColor, setCurColor] = useState("#ffffff");
-
-
-  _onPressButton = () => {
-    if (selectedTool == 0) {
-      setCurColor(selectedColor);
-    }
-    if (selectedTool == 1) {
-      setCurColor(eraseColor);
+  _onDrawButtonPress = () => {
+    selectedTool = 0
+  }
+  
+  _onEraseButtonPress = () => {
+    selectedTool = 1
+  }
+  
+  class Action {
+    constructor(colorNew, colorOld, row, col) {
+      this.colorNew = colorNew;
+      this.colorOld = colorOld
+      this.row = row;
+      this.col = col;
     }
   }
-
-
-  return (
-    <TouchableWithoutFeedback onPress={this._onPressButton} >
-      <View style={styles.pixel} backgroundColor={curColor}>
-       {/* <Text style={styles.buttonText}>TouchableWithoutFeedback</Text> */}
+  
+  var Actions = new Array;
+  
+  Pixel = props => {
+    const [curColor, setCurColor] = useState("#ffffff");
+  
+    _onPressButton = () => {
+      newColor = selectedColor  // By default assume the draw tool
+      if (selectedTool == 1) {  // If the tool is the erase tool, use the erase color
+        newColor = eraseColor;
+      }
+  
+      action = new Action(newColor, curColor, this.row, this.col)
+      Actions.push(action)
+      setCurColor(newColor);  // Set the current color to the new color.
+    }
+  
+    return (
+      <TouchableWithoutFeedback onPress={this._onPressButton} >
+        <View style={styles.pixel} backgroundColor={curColor}>
+         {/* <Text style={styles.buttonText}>TouchableWithoutFeedback</Text> */}
+        </View>
+      </TouchableWithoutFeedback>
+    );
+  };
+  
+  Row = props => {
+    return (
+      <View style={styles.row}>
+        <Pixel col={0} row={this.row}/>
+        <Pixel col={1} row={this.row}/>
+        <Pixel col={2} row={this.row}/>
+        <Pixel col={3} row={this.row}/>
+        <Pixel col={4} row={this.row}/>
+        <Pixel col={5} row={this.row}/>
+        <Pixel col={6} row={this.row}/>
+        <Pixel col={7} row={this.row}/>
       </View>
-    </TouchableWithoutFeedback>
-  );
-};
-
-
-Row = props => {
-  return (
-    <View style={styles.row}>
-      <Pixel/><Pixel/><Pixel/><Pixel/><Pixel/><Pixel/><Pixel/><Pixel/>
-    </View>
-  );
-}
-
-
-function Tools() {
-  const [drawCurColor, setDrawCurColor] = useState(selectedColor);
-  const [eraseCurColor, setEraseCurColor] = useState("#aaaaaa");
- 
-  nonSelectColor = "#aaaaaa"
-  selectEraseColor = "#555555"
-
-
-  _onDrawButtonPressLocal = () => {
-    this._onDrawButtonPress()
-    this._onToolButtonPress();
+    );
   }
- 
-  _onEraseButtonPressLocal = () => {
-    this._onEraseButtonPress()
-    this._onToolButtonPress();
-  }
-
-
-  _onToolButtonPress = () => {
-    if (selectedTool == 0) {
-      setDrawCurColor(selectedColor);
-      setEraseCurColor(nonSelectColor)
+  
+  function Tools() {
+    const [drawCurColor, setDrawCurColor] = useState(selectedColor);
+    const [eraseCurColor, setEraseCurColor] = useState("#aaaaaa");
+   
+    nonSelectColor = "#aaaaaa"
+    selectEraseColor = "#555555"
+  
+  
+    _onDrawButtonPressLocal = () => {
+      this._onDrawButtonPress()
+      this._onToolButtonPress();
     }
-    if (selectedTool == 1) {
-      setDrawCurColor(nonSelectColor);
-      setEraseCurColor(selectEraseColor)
+   
+    _onEraseButtonPressLocal = () => {
+      this._onEraseButtonPress()
+      this._onToolButtonPress();
     }
-  }
-
-
-  return (
-    <View style={styles.toolbar}>
-      <TouchableWithoutFeedback onPress={this._onDrawButtonPressLocal} >
-        <View style={styles.tool} backgroundColor={drawCurColor}>
-          <Text style={styles.buttonText}>Draw</Text>
-        </View>
-      </TouchableWithoutFeedback>
-      <TouchableWithoutFeedback onPress={this._onEraseButtonPressLocal} >
-        <View style={styles.tool} backgroundColor={eraseCurColor}>
-          <Text style={styles.buttonText}>Erase</Text>
-        </View>
-      </TouchableWithoutFeedback>
-    </View>
-  );
-};
-
-
-DrawingCanvas = props => {
-  return (
-    <View style={styles.drawingCanvas}>
-      <Row/>
-      <Row/>
-      <Row/>
-      <Row/>
-      <Row/>
-      <Row/>
-      <Row/>
-      <Row/>
+  
+  
+    _onToolButtonPress = () => {
+      if (selectedTool == 0) {
+        setDrawCurColor(selectedColor);
+        setEraseCurColor(nonSelectColor)
+      }
+      if (selectedTool == 1) {
+        setDrawCurColor(nonSelectColor);
+        setEraseCurColor(selectEraseColor);
+      }
+    }
+  
+  
+    return (
       <View style={styles.toolbar}>
-        <Tools/>
+        <TouchableWithoutFeedback onPress={this._onDrawButtonPressLocal} >
+          <View style={styles.tool} backgroundColor={drawCurColor}>
+            <Text style={styles.buttonText}>Draw</Text>
+          </View>
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={this._onEraseButtonPressLocal} >
+          <View style={styles.tool} backgroundColor={eraseCurColor}>
+            <Text style={styles.buttonText}>Erase</Text>
+          </View>
+        </TouchableWithoutFeedback>
       </View>
+    );
+  };
+  
+  DrawingCanvas = props => {
+    // var Rows = new Array();
+    // for (i = 0; i < props.Rows; i++) {
+    //   Rows[i] = <Row row={i} Cols={this.Cols}/>
+    // }
+    return (
+      <View style={styles.drawingCanvas}>
+        <Row row={0}/>
+        <Row row={1}/>
+        <Row row={2}/>
+        <Row row={3}/>
+        <Row row={4}/>
+        <Row row={5}/>
+        <Row row={6}/>
+        <Row row={7}/>
+        <View style={styles.toolbar}>
+          <Tools/>
+        </View>
+      </View>
+    );
+  }
+  return (
+    <View style={styles.screen}>
+      {/* <LinkFarm navigation={navigation} route={route} /> */}
+      <DrawingCanvas/>
     </View>
-  );
+  )
 }
+
+
 
 
 const styles = StyleSheet.create({
@@ -155,8 +170,8 @@ const styles = StyleSheet.create({
   pixel: {
     width: 44,
     height: 44,
-    margin: 1,
-    marginHorizontal: 1,
+    margin: 0.5,
+    marginHorizontal: 0.5,
     alignItems: 'center',
     backgroundColor: '#2196F3',
     flexDirection:"row",
