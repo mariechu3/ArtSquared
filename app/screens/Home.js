@@ -25,8 +25,8 @@ export default Home = ({ navigation, screen }) => (
         <Image style={styles.image} source={images.Dinosaur} />
       </View>
     </ScrollView>
-    <Button textSize={36}>Friends</Button>
     <Button textSize={36} onPress={() => navigation.navigate('Gallery')}>My Gallery</Button>
+    <Button textSize={36} onPress={() => navigation.navigate("Collaborate")}>Collaborate</Button>
     <Button textSize={36} onPress={() => navigation.navigate("Canvas")}>Create</Button>
   </Content >
 )

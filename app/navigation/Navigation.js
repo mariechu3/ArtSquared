@@ -82,34 +82,6 @@ export default Navigation = () => {
                     ),
                 }}
                 component={Canvas} />
-            {/* <Drawer.Screen
-                name="Collaborate"
-                options={{
-                    title: 'Collaborate',
-                    drawerIcon: ({ focused, size }) => (
-                        <Icon
-                            style={{ paddingRight: 10 }}
-                            size={36}
-                            type="ionicon"
-                            name={Platform.OS === "ios" ? "ios-people-outline" : "md-people-outline"}
-                        />
-                    ),
-                }}
-                component={Collaborate} /> */}
-            {/* <Drawer.Screen
-                name="Share"
-                options={{
-                    title: 'Share',
-                    drawerIcon: ({ focused, size }) => (
-                        <Icon
-                            style={{ paddingRight: 10 }}
-                            size={36}
-                            type="ionicon"
-                            name={Platform.OS === "ios" ? "ios-share-outline" : "md-share-outline"}
-                        />
-                    ),
-                }}
-                component={Share} /> */}
             <Drawer.Screen
                 name="Gallery"
                 options={{
@@ -138,6 +110,34 @@ export default Navigation = () => {
                     ),
                 }}
                 component={Lessons} />
+            <Drawer.Screen
+                name="Collaborate"
+                options={{
+                    title: 'Collaborate',
+                    drawerIcon: ({ focused, size }) => (
+                        <Icon
+                            style={{ paddingRight: 10 }}
+                            size={36}
+                            type="ionicon"
+                            name={Platform.OS === "ios" ? "ios-people-outline" : "md-people-outline"}
+                        />
+                    ),
+                }}
+                component={Collaborate} />
+            <Drawer.Screen
+                name="Share"
+                options={{
+                    title: 'Share',
+                    drawerIcon: ({ focused, size }) => (
+                        <Icon
+                            style={{ paddingRight: 10 }}
+                            size={36}
+                            type="ionicon"
+                            name={Platform.OS === "ios" ? "ios-share-outline" : "md-share-outline"}
+                        />
+                    ),
+                }}
+                component={Share} />
         </Drawer.Navigator >
     );
 }
