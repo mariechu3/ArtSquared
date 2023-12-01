@@ -1,9 +1,18 @@
 import React from 'react';
-import { View, Text } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 
-export default Content = ({ children }) => {
+const styles = StyleSheet.create({
+    content: {
+        marginTop: 24,
+        marginRight: 24,
+        marginBottom: 80,
+        marginLeft: 24
+    }
+})
+
+export default Content = ({ children, ...rest }) => {
     return (
-        <View style={{ marginTop: 24, marginRight: 24, marginBottom: 80, marginLeft: 24 }}>
+        <View style={[styles.content, rest.style]}>
             {children}
         </View>
     )

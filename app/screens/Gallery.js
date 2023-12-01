@@ -28,31 +28,60 @@ export default Gallery = ({ navigation, screen }) => {
             <TouchableOpacity
               style={styles.action}
               onPress={() => { navigation.navigate('Share'); setModalVisible(!modalVisible) }}>
-              <Text>Share</Text>
+              <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
+                <Icon
+                  size={24}
+                  type="ionicon"
+                  name={Platform.OS === "ios" ? "ios-share-outline" : "md-share-outline"}
+                />
+                <Text>Share</Text>
+
+              </View>
             </TouchableOpacity>
             <View style={styles.divider}></View>
             <TouchableOpacity
               style={styles.action}
               onPress={() => { navigation.navigate('Collaborate'); setModalVisible(!modalVisible) }}>
-              <Text>Collaborate</Text>
+              <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
+                <Icon
+                  size={24}
+                  type="ionicon"
+                  name={Platform.OS === "ios" ? "ios-people-outline" : "md-people-outline"}
+                />
+                <Text>Collaborate</Text>
+              </View>
             </TouchableOpacity>
             <View style={styles.divider}></View>
             <TouchableOpacity
               style={styles.action}
               onPress={() => { setModalVisible(!modalVisible) }}>
-              <Text>Delete</Text>
+              <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
+                <Icon
+                  size={24}
+                  type="ionicon"
+                  name={Platform.OS === "ios" ? "ios-trash-outline" : "md-trash-outline"}
+                />
+                <Text>Delete</Text>
+              </View>
             </TouchableOpacity>
             <View style={styles.divider}></View>
             <TouchableOpacity
               style={styles.action}
               onPress={() => { setModalVisible(!modalVisible) }}>
-              <Text>Rename</Text>
+              <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
+                <Icon
+                  size={24}
+                  type="ionicon"
+                  name={Platform.OS === "ios" ? "ios-create-outline" : "md-create-outline"}
+                />
+                <Text>Rename</Text>
+              </View>
             </TouchableOpacity>
           </View>
         </View>
-      </Modal>
+      </Modal >
 
-    </Content>
+    </Content >
   )
 }
 
@@ -71,7 +100,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5,
+    // elevation: 5,
   },
   action: {
     alignItems: 'center',
