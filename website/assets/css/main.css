@@ -14,6 +14,16 @@
 	#logo {width:20% !important;}
   }
 
+.action-button:hover{
+	background-color: #888888  !important;
+}
+#header {
+	display:flex !important; 
+	flex-direction: column !important; 
+	align-items: center !important; 
+	gap:14px !important;
+}
+
 html, body, div, span, applet, object,
 iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
 pre, a, abbr, acronym, address, big, cite,
@@ -28,7 +38,7 @@ section, summary, time, mark, audio, video, button {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 100%;
+	font-size: 80%;
 	font: inherit;
 	vertical-align: baseline;}
 
@@ -113,7 +123,7 @@ input, select, textarea {
 		font-family: 'Source Sans Pro', sans-serif;
 		font-size: 16pt;
 		font-weight: 400;
-		line-height: 1.75em;
+		line-height: 1.5em;
 	}
 
 	a {
@@ -159,11 +169,11 @@ input, select, textarea {
 		}
 
 	h2 {
-		font-size: 1.75em;
+		font-size: 1em;
 	}
 
 	h3 {
-		font-size: 1.5em;
+		font-size: 0.75em;
 	}
 
 	sub {
@@ -187,7 +197,7 @@ input, select, textarea {
 	blockquote {
 		border-left: solid 0.5em rgba(224, 224, 224, 0.75);
 		font-style: italic;
-		padding: 1em 0 1em 2em;
+		padding: 1em 0 1em 0em;
 	}
 
 /* Container */
@@ -2235,7 +2245,7 @@ input, select, textarea {
 				font-size: 6em;
 				height: 1em;
 				left: 50%;
-				line-height: 1em;
+				line-height: 1.75em;
 				margin: -0.5em 0 0 -0.5em;
 				position: absolute;
 				text-align: center;
@@ -2451,7 +2461,7 @@ input, select, textarea {
 		ul.icons li {
 			display: inline-block;
 			font-size: 1.25em;
-			line-height: 1em;
+			line-height: 1.75em;
 			padding-left: 0.5em;
 		}
 
@@ -2884,7 +2894,7 @@ input, select, textarea {
 		#footer .copyright {
 			color: rgba(255, 255, 255, 0.5);
 			font-size: 0.8em;
-			line-height: 1em;
+			line-height: 1.75em;
 			margin: 3em 0 0 0;
 		}
 
@@ -3031,7 +3041,7 @@ input, select, textarea {
 				background-attachment: scroll,							scroll,							scroll;
 				background-image: url("images/top-1600.svg"), url("images/overlay.png"), url("../../images/pixelArt.png");
 				background-size: 1600px 230px,					auto,							cover;
-				padding: 6em 0 12em 0;
+				padding: 3em 0 6em 0;
 			}
 
 				#header:before {
@@ -3066,7 +3076,7 @@ input, select, textarea {
 		/* Main */
 
 			#main {
-				padding: 4em 0 3em 0;
+				padding: 2em 0 3em 0;
 			}
 
 	}

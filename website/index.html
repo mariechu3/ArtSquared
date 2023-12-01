@@ -17,16 +17,20 @@
 <body class="is-preload">
 
 	<!-- Header -->
-	<div id="header">
-		<img id="logo" style="padding: 0px 0px; width: 5%" src="images/Logo.png" /><br />
-		<span>"Learn art and build your community <br />
-			- One pixel at a time."</span><br /><br /><br />
-		<button style="padding: 5px 10px; color: black; border: 2px solid gray; border-radius: 10px; margin: 10px"
-			onClick="document.getElementById('blurb').scrollIntoView();">Learn more</button><br />
-		<button style="padding: 5px 10px; color: black; border: 2px solid gray; border-radius: 10px; margin: 10px"
+	<span id="header" style="display:flex; flex-direction: column; align-items: center; gap:14px">
+		<div style="display:flex; flex-direction: column; align-items: center; margin-bottom:14px">
+			<img id="logo" style="padding: 0px 0px; width: 5%" src="images/Logo.png" />
+			<span>"Learn art and build your community <br />
+				- One pixel at a time."</span>
+		</div>
+		<button class="action-button"
+			style="padding: 5px 10px; background-color: white; color: black; border: 2px solid gray; border-radius: 10px; font-size:16px; cursor:pointer"
+			onClick="document.getElementById('blurb').scrollIntoView();">Learn more</button>
+		<button class="action-button"
+			style="padding: 5px 10px; color: black; background-color: white; border: 2px solid gray; border-radius: 10px; font-size:16px; cursor:pointer"
 			onClick="document.getElementById('team').scrollIntoView();">Meet
 			the team</button>
-	</div>
+	</span>
 
 	<!-- Main -->
 	<div id="main">
@@ -109,7 +113,7 @@
 				</div>
 			</section>
 			<section class="feature left" style="height:auto">
-				<img style="padding: 30px 0px" class="image" src="" alt="demo video" />
+				<img style="padding: 30px 0px" class="image" src="images/placeholder image.jpeg" alt="demo video" />
 				<div class="content">
 					<h3>Poster, Pitch & Demo Video</h3>
 					<p>View our: <a href="files/Assignment 9.pdf">slide</a>
@@ -119,7 +123,7 @@
 				</div>
 			</section>
 			<section class="feature right" style="height:auto">
-				<img style="padding: 30px 0px" class="image" src="" alt="poster" />
+				<img style="padding: 30px 0px" class="image" src="images/placeholder image.jpeg" alt="poster" />
 				<div class="content">
 					<h3>Final Report </h3>
 					<p>View our: <a href="files/Assignment 9.pdf">report</a>
@@ -133,25 +137,25 @@
 		<div id="team" class="box container">
 			<h1>Meet the team</h1>
 			<div id="team-flex" style="display:flex; max-width:100%; justify-content: space-around; gap:5%">
-				<span style="flex-grow:1; flex-basis: 0; text-align: center;"><img
+				<span style="display:flex; flex-direction: column; align-items:center; flex-grow:1; flex-basis: 0; text-align: center;"><img
 						style="border-radius: 100%; width:100%" src="images/becky.jpeg" alt="">
 					<h1 id="logo"><a href="https://www.linkedin.com/in/becky-m/"
 							style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Becky M.</a></h1>
 					<p>Designer/Developer</p>
 				</span>
-				<span style="flex-grow:1; flex-basis: 0; text-align: center;"><img
+				<span style="display:flex; flex-direction: column; align-items:center; flex-grow:1; flex-basis: 0; text-align: center;"><img
 						style="border-radius: 100%; width:100%" src="images/david.png" alt="">
 					<h1 id="logo"><a href="https://www.linkedin.com/in/david-castro-ramirez-4509a5214/"
 							style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">David C.</a></h1>
 					<p>Designer</p>
 				</span>
-				<span style="flex-grow:1; flex-basis: 0; text-align: center;"><img
+				<span style="display:flex; flex-direction: column; align-items:center; flex-grow:1; flex-basis: 0; text-align: center;"><img
 						style="border-radius: 100%; width:100%" src="images/leyth.jpeg" alt="">
 					<h1 id="logo"><a href="https://www.linkedin.com/in/leyth-toubassy/"
 							style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Leyth T.</a></h1>
 					<p>Designer/Developer</p>
 				</span>
-				<span style="flex-grow:1; flex-basis: 0; text-align: center;"><img
+				<span style="display:flex; flex-direction: column; align-items:center; flex-grow:1; flex-basis: 0; text-align: center;"><img
 						style="border-radius: 100%; width:100%" src="images/marie.jpeg" alt="">
 					<h1 id="logo"><a href="https://www.linkedin.com/in/marie-chu-b53390172/"
 							style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Marie C.</a></h1>
