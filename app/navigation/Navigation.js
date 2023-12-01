@@ -82,7 +82,7 @@ export default Navigation = () => {
                     ),
                 }}
                 component={Canvas} />
-            <Drawer.Screen
+            {/* <Drawer.Screen
                 name="Collaborate"
                 options={{
                     title: 'Collaborate',
@@ -95,8 +95,8 @@ export default Navigation = () => {
                         />
                     ),
                 }}
-                component={Collaborate} />
-            <Drawer.Screen
+                component={Collaborate} /> */}
+            {/* <Drawer.Screen
                 name="Share"
                 options={{
                     title: 'Share',
@@ -109,7 +109,7 @@ export default Navigation = () => {
                         />
                     ),
                 }}
-                component={Share} />
+                component={Share} /> */}
             <Drawer.Screen
                 name="Gallery"
                 options={{
