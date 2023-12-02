@@ -1,8 +1,12 @@
-import React, { useState } from 'react'
-import { Modal, TouchableWithoutFeedback } from 'react-native'
-import { StyleSheet, View, Text} from 'react-native'
+import React, { useState, useRef } from 'react'
+import { Modal, TouchableWithoutFeedback, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { TriangleColorPicker, toHsv } from 'react-native-color-picker'
+import ViewShot from 'react-native-view-shot'
+import Button from '../components/Button'
+import Text from '../components/Text'
+
 
 const NUM_ROWS = 8
 const NUM_COLS = 8
@@ -33,6 +37,22 @@ var Actions = new Array;
 var Redos = new Array;
 
 export default Canvas = ({ navigation, route }) => {
+  /********** Stuff for screen capture ***********/
+  const [previewModalVisible, setPreviewModalVisible] = useState(false);
+  const [pickerModalVisible, setPickerModalVisible] = useState(false);
+
+  const viewShot = useRef(null);
+  const [uri, setUri] = useState("");
+  const captureScreen = () => {
+    viewShot.current.capture().then((uri) => {
+      setUri(uri);
+      setPreviewModalVisible(true)
+
+    });
+  }; 
+  
+  /**********************************************/
+
   var emptyCanvas = new Array
   for (i = 0; i < NUM_ROWS * NUM_COLS; i++) {
       emptyCanvas[i] = eraseColor
@@ -47,7 +67,6 @@ export default Canvas = ({ navigation, route }) => {
   const [selectedColor, setSelectedColor] = useState('#000000');
   const [actionsLen, setActionsLen] = useState(Actions.length)
   const [redosLen, setRedosLen] = useState(Redos.length)
-  const [pickerShow, setPickerShow] = useState(false)
   const [gridShow, setGridShow] = useState(true)
 
   applyAction = (action) => {
@@ -146,7 +165,7 @@ export default Canvas = ({ navigation, route }) => {
     }
 
     onPickerPress = () => {
-      setPickerShow(!pickerShow);
+      setPickerModalVisible(!pickerModalVisible);
     }
 
     onGridPress = () => {
@@ -189,9 +208,9 @@ export default Canvas = ({ navigation, route }) => {
         
         {/* Pallette Button */}
         <TouchableWithoutFeedback onPress={this.onPickerPress} >
-          <View style={styles.tool} borderColor={pickerShow ? 'black' : nonSelectColor}>
+          <View style={styles.tool} borderColor={pickerModalVisible ? 'black' : nonSelectColor}>
             {/*<Text style={styles.buttonText, {color: redosLen > 0? workingToolColor : undoRedoFadedText}}>Redo</Text>*/}
-            <Icon color={pickerShow ? 'black' : 'gray'} size={25} type='ionicon' name='color-palette' />
+            <Icon color={pickerModalVisible ? 'black' : 'gray'} size={25} type='ionicon' name='color-palette' />
           </View>
         </TouchableWithoutFeedback>
 
@@ -214,7 +233,7 @@ export default Canvas = ({ navigation, route }) => {
     }
 
     onLongPressColor = () => {
-      setModalVisible(true)
+      setPickerModalVisible(true)
     }
 
     return (
@@ -229,14 +248,16 @@ export default Canvas = ({ navigation, route }) => {
   DrawingCanvas = props => {
     return (
       <View style={styles.drawingCanvas}>
-        <Row row={0}/>
-        <Row row={1}/>
-        <Row row={2}/>
-        <Row row={3}/>
-        <Row row={4}/>
-        <Row row={5}/>
-        <Row row={6}/>
-        <Row row={7}/>
+        <ViewShot ref={viewShot} style={styles.viewShot}>
+          <Row row={0}/>
+          <Row row={1}/>
+          <Row row={2}/>
+          <Row row={3}/>
+          <Row row={4}/>
+          <Row row={5}/>
+          <Row row={6}/>
+          <Row row={7}/>
+        </ViewShot>
         <View style={styles.toolbar}>
           <Tools/>
         </View>
@@ -262,6 +283,37 @@ export default Canvas = ({ navigation, route }) => {
 
           <ColorSelect color={'#000000'}/>
         </View>
+         {/***** Preview screencapture *****/}
+         <Button textSize={36} onPress={captureScreen}>Save</Button>
+
+         <Modal
+          animationType="slide"
+          transparent={true}
+          visible={previewModalVisible}
+        >
+
+          <View style={styles.modalView}>
+            <TouchableOpacity
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setPreviewModalVisible(!previewModalVisible)}>
+              <Icon size={20} type="ionicon" name="close" />
+            </TouchableOpacity>
+
+            <Text>Preview</Text>
+            {uri ? (
+
+            <Image
+              source={{ uri: uri }}
+              style={styles.previewImage}
+              resizeMode="contain"
+            />
+        ) : null}
+
+          </View>
+
+        </Modal>
+
+        {/***** Preview screencapture *****/}
       </View>
     );
   }
@@ -269,7 +321,7 @@ export default Canvas = ({ navigation, route }) => {
   Picker = () => {
     pickerSelectColor = color => {
       setSelectedColor(color)
-      setPickerShow(false)
+      setPickerModalVisible(false)
     }
     return (
       <View style={styles.picker}>
@@ -284,9 +336,29 @@ export default Canvas = ({ navigation, route }) => {
   }
 
   return (
-    <View style={styles.screen, {flex: 1, padding: 10}}>
+    <View style={[styles.screen, {flex: 1, padding: 10}]}>
       <DrawingCanvas/>
-      {pickerShow == true ? (<Picker/>) : null }
+      <Modal
+          animationType="slide"
+          transparent={true}
+          visible={pickerModalVisible}
+        >
+        <View style={{height:'50%', marginTop:'auto', backgroundColor: 'white', borderRadius: 2, borderTopWidth: 2, borderColor: '#d9d9d9', padding: 24, paddingRight: 50}}>
+          <View style={{ display: 'flex', flexDirection: 'row', gap: 5}}>
+          <View style ={{display:'flex', flexDirection: 'column'}}>
+            <Text style={{ fontSize:18 }}>1. Turn the triangle to change the color</Text>
+            <Text style={{ fontSize:18 }}>2. Drag the circle to select the hue</Text>
+            <Text style={{ fontSize:18 }}>3. Click on the final color on the bottom to select the color</Text>
+          </View>
+          <TouchableOpacity
+              style={[styles.buttonClose, {alignSelf:'flex-start'}]}
+              onPress={() => setPickerModalVisible(!pickerModalVisible)}>
+              <Icon size={20} type="ionicon" name="close" />
+          </TouchableOpacity>
+          </View>
+          <Picker/>
+        </View>
+      </Modal>
     </View> 
   )
 }
@@ -325,26 +397,7 @@ const styles = StyleSheet.create({
     padding: 0,
     paddingBottom: 40,
     paddingHorizontal: 50,
-    borderTopLeftRadius: 7,
-    borderTopRightRadius: 7,
-    borderBottomLeftRadius: 7,
-    borderBottomRightRadius: 7,
-    backgroundColor: '#f2f2f2'
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+    backgroundColor: 'white'
   },
   centeredView: {
     flex: 1,
@@ -387,6 +440,8 @@ const styles = StyleSheet.create({
   },
   drawingCanvas: {
     alignItems: 'center',
+    display:'flex',
+    flexDirection: 'column'
   },
   toolbar: {
     flexDirection:"row",
@@ -397,6 +452,40 @@ const styles = StyleSheet.create({
     padding: 10,
     color: 'gray',
   },
+  // modal styles
+  buttonClose: {
+    backgroundColor: '#D9D9D9',
+    alignSelf: 'flex-end',
+    borderRadius: 20,
+    padding: 5,
+    elevation: 2,
+  },
+  // screenshot styles
+   viewShot: {
+    display:'flex',
+    alignItems: 'center',
+    width: 400,
+    height: 400,
+  },
+  modalView: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 'auto',
+    height: '35%',
+    backgroundColor: 'white',
+    borderRadius: 5,
+    padding: 24,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  previewImage: { width: 200, height: 200, backgroundColor: "#fff" },
 })
 
 
