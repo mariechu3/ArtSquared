@@ -1,10 +1,14 @@
 import React from 'react'
 import Text from '../components/Text'
 import Content from '../components/Content'
+import YoutubePlayer from 'react-native-youtube-iframe';
 
 
-export default Lessons = () => (
-  <Content>
-    <Text>Lessons</Text>
-  </Content>
-)
+export default Lessons = () => {
+
+  return (
+    <Content>
+      <Text>Lessons</Text>
+    </Content >
+  )
+}
