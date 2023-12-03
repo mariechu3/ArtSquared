@@ -29,7 +29,7 @@ function CustomDrawerContent(props) {
     );
 }
 
-export default Navigation = () => {
+export default Navigation = ({ drawings, addDrawing, removeDrawing }) => {
     return (
         <Drawer.Navigator
             drawerContent={(props) => <CustomDrawerContent {...props} />}
@@ -67,7 +67,7 @@ export default Navigation = () => {
                     ),
 
                 }}
-                component={Home} />
+                component={({ navigation }) => <Home navigation={navigation} drawings={drawings} />} />
             <Drawer.Screen
                 name="Canvas"
                 options={{
@@ -81,7 +81,7 @@ export default Navigation = () => {
                         />
                     ),
                 }}
-                component={Canvas} />
+                component={() => <Canvas addDrawing={addDrawing} />} />
             <Drawer.Screen
                 name="Gallery"
                 options={{
@@ -95,7 +95,7 @@ export default Navigation = () => {
                         />
                     ),
                 }}
-                component={Gallery} />
+                component={({ navigation }) => <Gallery navigation={navigation} drawings={drawings} />} />
             <Drawer.Screen
                 name="Lessons"
                 options={{
@@ -137,7 +137,8 @@ export default Navigation = () => {
                         />
                     ),
                 }}
-                component={Share} />
+                component={({ navigation, route }) => <Share route={route} navigation={navigation} buttonText="Next" drawings={drawings} />}
+            />
         </Drawer.Navigator >
     );
 }
