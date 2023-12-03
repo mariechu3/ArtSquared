@@ -2,17 +2,44 @@ import Content from '../components/Content'
 import Text from '../components/Text'
 import Friend from '../components/Friend'
 import images from '../Variables/Images'
-import { ScrollView, View, Modal, Image, TouchableOpacity } from 'react-native'
+import { ScrollView, View, Modal, Image, TouchableOpacity, Platform } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import Button from '../components/Button'
-import Dinosaur from '../assets/dinosaur.png'
 import * as SMS from 'expo-sms';
-import numbers from '../Variables/Numbers'
+import numbers from '../Variables/Numbers';
+import * as ImagePicker from 'expo-image-picker';
 
-const DinosaurUri = Image.resolveAssetSource(Dinosaur).uri
-const FriendList = ({ buttonText, imageTitle }) => {
+// export default Share = () => (
+//   <Content>
+//     <Text>Select Friends</Text>
+//     <FriendList buttonText="Next" imageTitle="Dinosaur" />
+//   </Content>
+// )
+export default Share = ({ route, buttonText, drawings }) => {
+  // image is {name: string, uri: string}
+  const [image, setImage] = useState({ name: drawings[0].name, uri: drawings[0].uri });
+  const selectedDrawing = route?.params?.selectedDrawing ? route.params.selectedDrawing : null;
+  console.log("selectedDrawing", route, selectedDrawing)
+  // const pickImage = async () => {
+  //   // No permissions request is necessary for launching the image library
+  //   let result = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
+  //     allowsEditing: true,
+  //     aspect: [4, 3],
+  //     quality: 1,
+  //   });
+
+  //   console.log("result", result);
+
+  //   if (!result.canceled) {
+  //     setImage(result.assets[0].uri);
+  //   }
+  // };
+
+
+
   const [isAvailable, setIsAvailable] = useState(false);
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(!selectedDrawing);
   const [selectedFriends, setSelectedFriends] = useState(new Set())
   const addFriend = (name) => {
     setSelectedFriends(friends => new Set([...friends, name]))
@@ -23,20 +50,37 @@ const FriendList = ({ buttonText, imageTitle }) => {
     console.log("removeFriend:", selectedFriends)
   }
 
-  useEffect(async () => {
-    const isSmsAvailable = await SMS.isAvailableAsync();
-    setIsAvailable(isSmsAvailable)
+  useEffect(() => {
+    // declare the data fetching function
+    const isSmsAvailable = async () => {
+      const available = await SMS.isAvailableAsync();
+      setIsAvailable(available)
+    }
+
+    // call the function
+    isSmsAvailable()
+      // make sure to catch any error
+      .catch(console.error);
   }, [])
+
+  // useEffect(async () => {
+  //   const isSmsAvailable = await SMS.isAvailableAsync();
+  //   setIsAvailable(isSmsAvailable)
+  // }, [])
+
+  // downloadImageFile = (uri) => {
+  //   const file = new Blob([uriuri], {type: 'image/png'});
+  // }
 
   const sendSMS = async (numbers) => {
     const { result } = await SMS.sendSMSAsync(
       numbers,
-      'Check out my artwork!',
+      `Check out my ${image.name} artwork!`,
       {
         attachments: {
-          uri: DinosaurUri,
+          uri: image.uri,
           mimeType: 'image/png',
-          filename: '../assets/dinosaur.png',
+          filename: `${image.name}.png`,
         },
       }
     )
@@ -44,19 +88,35 @@ const FriendList = ({ buttonText, imageTitle }) => {
   }
 
   return (
-    <>
+    <Content>
+      <Text>Select Friends</Text>
+
       <Modal
         animationType="none"
         transparent={false}
         visible={modalVisible}
       >
-        <Content style={{ display: 'flex', flexDirection: 'column', flex: 1, alignItems: "center", padding: 50, gap: 20 }}>
-          <Text style={{fontSize: 30}}>Select an image</Text>
+        <Content style={{ display: 'flex', flexDirection: 'column', flex: 1, alignItems: "center", paddingTop: 20, gap: 20 }}>
+          <Text style={{ fontSize: 30 }}>Select an image</Text>
+          <ScrollView vertical showsVerticalScrollIndicator={false}>
 
-          <TouchableOpacity onPress={() => setModalVisible(false)} style={{ flexGrow: 1, display: "flex", alignItems: 'center' }}>
-            <Image style={{ width: 150, height: 150 }} source={images['Dinosaur']} />
-            <Text>Dinosaur</Text>
-          </TouchableOpacity>
+            <View style={{ width: "100%", display: 'flex', flexWrap: 'wrap', flexDirection: 'row', rowGap: 30 }}>
+              {/* {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />} */}
+              {drawings.map((image) => {
+                return (
+                  <TouchableOpacity key={image.name} onPress={() => { setModalVisible(false); setImage(image) }} style={{ flexGrow: 1, flexShrink: 1, flexBasis: 150, display: "flex", alignItems: 'center' }}>
+                    <Image source={{ uri: image.uri }} style={{ width: 100, height: 100 }} />
+                    <Text>{image.name}</Text>
+                  </TouchableOpacity>
+                );
+              })}
+
+              {/* <Button onPress={pickImage} textSize={30}>Choose from camera roll</Button>
+            <Button onPress={() => setModalVisible(false)} textSize={30}>Next</Button> */}
+
+            </View>
+          </ScrollView>
+
         </Content>
       </Modal>
       <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%' }}>
@@ -69,21 +129,15 @@ const FriendList = ({ buttonText, imageTitle }) => {
           </View>
         </ScrollView>
         <View style={{ flexGrow: 1, display: "flex", alignItems: 'center' }}>
-          <Image style={{ width: 200, height: 200 }} source={images[imageTitle]} />
-          <Text>{imageTitle}</Text>
+          <Image source={{ uri: image.uri }} style={{ width: 200, height: 200 }} />
+          <Text>{image.name}</Text>
         </View>
         <View style={{ padding: 50, alignItems: 'center' }}>
           {isAvailable ? <Button onPress={() => { sendSMS([...selectedFriends].map(x => numbers[x])); setModalVisible(false) }} textSize={30}>{buttonText}</Button> : <Text>sms not available</Text>}
           <Text style={{ fontSize: 18, opacity: selectedFriends.size > 0 ? 1 : 0 }}>Selected {selectedFriends.size} friend{selectedFriends.size > 1 ? "s" : ""}</Text>
         </View>
       </View >
-    </>
+    </Content>
   )
 }
 
-export default Share = () => (
-  <Content>
-    <Text>Select Friends</Text>
-    <FriendList buttonText="Next" imageTitle="Dinosaur" />
-  </Content>
-)

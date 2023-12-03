@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Modal, TouchableWithoutFeedback, TouchableOpacity, Image } from 'react-native'
 import { StyleSheet, View } from 'react-native'
 import { Icon } from 'react-native-elements'
@@ -6,7 +6,7 @@ import { TriangleColorPicker, toHsv } from 'react-native-color-picker'
 import ViewShot from 'react-native-view-shot'
 import Button from '../components/Button'
 import Text from '../components/Text'
-
+import * as MediaLibrary from 'expo-media-library';
 
 const NUM_ROWS = 8
 const NUM_COLS = 8
@@ -50,6 +50,21 @@ export default Canvas = ({ navigation, route }) => {
 
     });
   }; 
+
+  useEffect(() => {
+    // declare the data fetching function
+    const saveImage = async () => {
+      const data = await MediaLibrary.saveToLibraryAsync(uri);
+    alert("Saved!");
+    }
+  
+    // call the function
+    saveImage()
+      // make sure to catch any error
+      .catch(console.error);
+
+  }, [uri])
+ 
   
   /**********************************************/
 
