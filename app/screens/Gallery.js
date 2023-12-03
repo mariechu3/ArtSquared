@@ -35,6 +35,23 @@ export default Gallery = ({ drawings, navigation, screen }) => {
               <TouchableOpacity
                 style={styles.action}
                 onPress={() => {
+                  navigation.navigate('Canvas', { selectedDrawing: selectedDrawing });
+                  setModalVisible(!modalVisible)
+                }}>
+                <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
+                  <Icon
+                    size={24}
+                    type="ionicon"
+                    name={Platform.OS === "ios" ? "ios-pencil-outline" : "md-pencil-outline"}
+                  />
+                  <Text>Edit</Text>
+
+                </View>
+              </TouchableOpacity>
+              <View style={styles.divider}></View>
+              <TouchableOpacity
+                style={styles.action}
+                onPress={() => {
                   navigation.navigate('Share', { selectedDrawing: selectedDrawing });
                   setModalVisible(!modalVisible)
                 }}>

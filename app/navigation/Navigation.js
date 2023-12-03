@@ -81,7 +81,7 @@ export default Navigation = ({ drawings, addDrawing, removeDrawing }) => {
                         />
                     ),
                 }}
-                component={() => <Canvas addDrawing={addDrawing} />} />
+                component={({ route }) => <Canvas route={route} addDrawing={addDrawing} />} />
             <Drawer.Screen
                 name="Gallery"
                 options={{
