@@ -37,6 +37,7 @@ var Actions = new Array;
 var Redos = new Array;
 
 export default Canvas = ({ addDrawing, navigation, route }) => {
+  const selectedDrawing = route?.params?.selectedDrawing ? route.params.selectedDrawing : null;
   /********** Stuff for screen capture ***********/
   const [previewModalVisible, setPreviewModalVisible] = useState(false);
   const [pickerModalVisible, setPickerModalVisible] = useState(false);
@@ -264,6 +265,7 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
   DrawingCanvas = props => {
     return (
       <View style={styles.drawingCanvas}>
+        {selectedDrawing && <Text>{selectedDrawing.name}</Text>}
         <ViewShot ref={viewShot} style={styles.viewShot}>
           <Row row={0} />
           <Row row={1} />
