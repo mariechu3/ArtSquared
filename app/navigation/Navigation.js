@@ -46,7 +46,7 @@ export default Navigation = () => {
                 headerLeft: () => (<View style={{ paddingRight: 8 }}></View>),
 
                 headerRight: (props) => (<TouchableOpacity style={styles.menu} onPress={navigation.toggleDrawer}>
-                    <Icon size='44' name='menu' />
+                    <Icon size={44} name='menu' />
                 </TouchableOpacity>),
                 headerTitleAlign: "left",
                 headerTitleStyle: { fontSize: 24 },
