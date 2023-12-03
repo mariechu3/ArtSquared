@@ -36,7 +36,7 @@ class Action {
 var Actions = new Array;
 var Redos = new Array;
 
-export default Canvas = ({ navigation, route }) => {
+export default Canvas = ({ addDrawing, navigation, route }) => {
   /********** Stuff for screen capture ***********/
   const [previewModalVisible, setPreviewModalVisible] = useState(false);
   const [pickerModalVisible, setPickerModalVisible] = useState(false);
@@ -49,30 +49,31 @@ export default Canvas = ({ navigation, route }) => {
       setPreviewModalVisible(true)
 
     });
-  }; 
+  };
 
   useEffect(() => {
     // declare the data fetching function
     const saveImage = async () => {
       const data = await MediaLibrary.saveToLibraryAsync(uri);
-    alert("Saved!");
+      addDrawing({ uri: uri, name: Date.now().toString(15), pixels: null })
+      alert("Saved!");
     }
-  
+
     // call the function
     saveImage()
       // make sure to catch any error
       .catch(console.error);
 
   }, [uri])
- 
-  
+
+
   /**********************************************/
 
   var emptyCanvas = new Array
   for (i = 0; i < NUM_ROWS * NUM_COLS; i++) {
-      emptyCanvas[i] = eraseColor
+    emptyCanvas[i] = eraseColor
   }
-  
+
   rowCol2Index = (row, col) => {
     return (NUM_COLS * row) + col
   }
@@ -89,7 +90,7 @@ export default Canvas = ({ navigation, route }) => {
     cd[rowCol2Index(action.row, action.col)] = action.colorNew
     setCanvasData(cd)
   }
-  
+
   revertAction = (action) => {
     cd = [...canvasData]
     cd[rowCol2Index(action.row, action.col)] = action.colorOld
@@ -123,7 +124,7 @@ export default Canvas = ({ navigation, route }) => {
   _onDrawButtonPress = () => {
     setSelectedTool(0)
   }
-  
+
   _onEraseButtonPress = () => {
     setSelectedTool(1)
   }
@@ -145,36 +146,36 @@ export default Canvas = ({ navigation, route }) => {
         setCanvasData(cd);  // Set the current color to the new color.
       }
     }
-  
+
     return (
       <TouchableWithoutFeedback onPress={this._onPressButton} >
-        <View style={styles.pixel} margin={gridShow ? 0.5 : 0} marginHorizontal={gridShow ? 0.5 :0} backgroundColor={canvasData[rowCol2Index(props.row, props.col)]/*[this.col]*/}>
-         
+        <View style={styles.pixel} margin={gridShow ? 0.5 : 0} marginHorizontal={gridShow ? 0.5 : 0} backgroundColor={canvasData[rowCol2Index(props.row, props.col)]/*[this.col]*/}>
+
         </View>
       </TouchableWithoutFeedback>
     );
   };
-  
+
   Row = props => {
     return (
       <View style={styles.row}>
-        <Pixel col={0} row={props.row}/>
-        <Pixel col={1} row={props.row}/>
-        <Pixel col={2} row={props.row}/>
-        <Pixel col={3} row={props.row}/>
-        <Pixel col={4} row={props.row}/>
-        <Pixel col={5} row={props.row}/>
-        <Pixel col={6} row={props.row}/>
-        <Pixel col={7} row={props.row}/>
+        <Pixel col={0} row={props.row} />
+        <Pixel col={1} row={props.row} />
+        <Pixel col={2} row={props.row} />
+        <Pixel col={3} row={props.row} />
+        <Pixel col={4} row={props.row} />
+        <Pixel col={5} row={props.row} />
+        <Pixel col={6} row={props.row} />
+        <Pixel col={7} row={props.row} />
       </View>
     );
   }
-  
+
   function Tools() {
     onDrawButtonPress = () => {
       setSelectedTool(0);
     }
-   
+
     onEraseButtonPress = () => {
       setSelectedTool(1);
     }
@@ -193,7 +194,7 @@ export default Canvas = ({ navigation, route }) => {
         <TouchableWithoutFeedback onPress={this.onDrawButtonPress} >
           <View style={styles.tool} borderColor={selectedTool == 0 ? selectedColor : nonSelectColor}>
             {/*<Text style={styles.buttonText, {color: selectedTool == 0 ? selectedColor : 'gray'}}>Draw</Text>*/}
-            <Icon color={selectedTool == 0 ? selectedColor : 'gray'} size={25} type='ionicon' name='brush'/>
+            <Icon color={selectedTool == 0 ? selectedColor : 'gray'} size={25} type='ionicon' name='brush' />
           </View>
         </TouchableWithoutFeedback>
 
@@ -207,20 +208,20 @@ export default Canvas = ({ navigation, route }) => {
 
         {/* Undo Button */}
         <TouchableWithoutFeedback onPress={this.undo} >
-          <View style={styles.tool} backgroundColor={actionsLen > 0? nonSelectColor : undoRedoFadedBackground} borderColor={actionsLen > 0 ? nonSelectColor : undoRedoFadedBackground}>
+          <View style={styles.tool} backgroundColor={actionsLen > 0 ? nonSelectColor : undoRedoFadedBackground} borderColor={actionsLen > 0 ? nonSelectColor : undoRedoFadedBackground}>
             {/*<Text style={styles.buttonText, {color: actionsLen > 0? workingToolColor : undoRedoFadedText}}>Undo</Text>*/}
-            <Icon color={actionsLen > 0? workingToolColor : undoRedoFadedText} size={25} type='ionicon' name='arrow-undo' />
+            <Icon color={actionsLen > 0 ? workingToolColor : undoRedoFadedText} size={25} type='ionicon' name='arrow-undo' />
           </View>
         </TouchableWithoutFeedback>
 
         {/* Redo Button */}
         <TouchableWithoutFeedback onPress={this.redo} >
-          <View style={styles.tool} backgroundColor={redosLen > 0? nonSelectColor : undoRedoFadedBackground} borderColor={redosLen > 0 ? nonSelectColor : undoRedoFadedBackground}>
+          <View style={styles.tool} backgroundColor={redosLen > 0 ? nonSelectColor : undoRedoFadedBackground} borderColor={redosLen > 0 ? nonSelectColor : undoRedoFadedBackground}>
             {/*<Text style={styles.buttonText, {color: redosLen > 0? workingToolColor : undoRedoFadedText}}>Redo</Text>*/}
-            <Icon color={redosLen > 0? workingToolColor : undoRedoFadedText} size={25} type='ionicon' name='arrow-redo' />
+            <Icon color={redosLen > 0 ? workingToolColor : undoRedoFadedText} size={25} type='ionicon' name='arrow-redo' />
           </View>
         </TouchableWithoutFeedback>
-        
+
         {/* Pallette Button */}
         <TouchableWithoutFeedback onPress={this.onPickerPress} >
           <View style={styles.tool} borderColor={pickerModalVisible ? 'black' : nonSelectColor}>
@@ -239,7 +240,7 @@ export default Canvas = ({ navigation, route }) => {
       </View>
     );
   };
-  
+
   ColorSelect = props => {
     const [clr, setClr] = useState(props.color)
 
@@ -254,7 +255,7 @@ export default Canvas = ({ navigation, route }) => {
     return (
       <TouchableWithoutFeedback onPress={this.onSelectColor} onLongPress={onLongPressColor}>
         <View style={styles.colorSelect} backgroundColor={clr} borderColor={selectedColor == clr ? '#000000' : clr}>
-          
+
         </View>
       </TouchableWithoutFeedback>
     );
@@ -264,44 +265,44 @@ export default Canvas = ({ navigation, route }) => {
     return (
       <View style={styles.drawingCanvas}>
         <ViewShot ref={viewShot} style={styles.viewShot}>
-          <Row row={0}/>
-          <Row row={1}/>
-          <Row row={2}/>
-          <Row row={3}/>
-          <Row row={4}/>
-          <Row row={5}/>
-          <Row row={6}/>
-          <Row row={7}/>
+          <Row row={0} />
+          <Row row={1} />
+          <Row row={2} />
+          <Row row={3} />
+          <Row row={4} />
+          <Row row={5} />
+          <Row row={6} />
+          <Row row={7} />
         </ViewShot>
         <View style={styles.toolbar}>
-          <Tools/>
+          <Tools />
         </View>
         <View style={styles.toolbar}>
-          <ColorSelect color={'#ffff00'}/>
-          <ColorSelect color={'#FA9D00'}/>
-          <ColorSelect color={'#ED3624'}/>
-          
-          <ColorSelect color={'#a9ff17'}/>
-          <ColorSelect color={'#60ba46'}/>
-          <ColorSelect color={'#00733b'}/>
+          <ColorSelect color={'#ffff00'} />
+          <ColorSelect color={'#FA9D00'} />
+          <ColorSelect color={'#ED3624'} />
 
-          <ColorSelect color={'#969696'}/>
+          <ColorSelect color={'#a9ff17'} />
+          <ColorSelect color={'#60ba46'} />
+          <ColorSelect color={'#00733b'} />
+
+          <ColorSelect color={'#969696'} />
         </View>
         <View style={styles.toolbar}>
-          <ColorSelect color={'#FF00d4'}/>
-          <ColorSelect color={'#a400c7'}/>
-          <ColorSelect color={'#622d90'}/>
+          <ColorSelect color={'#FF00d4'} />
+          <ColorSelect color={'#a400c7'} />
+          <ColorSelect color={'#622d90'} />
 
-          <ColorSelect color={'#006fff'}/>
-          <ColorSelect color={'#1749b3'}/>
-          <ColorSelect color={'#120377'}/>
+          <ColorSelect color={'#006fff'} />
+          <ColorSelect color={'#1749b3'} />
+          <ColorSelect color={'#120377'} />
 
-          <ColorSelect color={'#000000'}/>
+          <ColorSelect color={'#000000'} />
         </View>
-         {/***** Preview screencapture *****/}
-         <Button textSize={36} onPress={captureScreen}>Save</Button>
+        {/***** Preview screencapture *****/}
+        <Button textSize={36} onPress={captureScreen}>Save</Button>
 
-         <Modal
+        <Modal
           animationType="slide"
           transparent={true}
           visible={previewModalVisible}
@@ -317,12 +318,12 @@ export default Canvas = ({ navigation, route }) => {
             <Text>Preview</Text>
             {uri ? (
 
-            <Image
-              source={{ uri: uri }}
-              style={styles.previewImage}
-              resizeMode="contain"
-            />
-        ) : null}
+              <Image
+                source={{ uri: uri }}
+                style={styles.previewImage}
+                resizeMode="contain"
+              />
+            ) : null}
 
           </View>
 
@@ -344,43 +345,43 @@ export default Canvas = ({ navigation, route }) => {
           oldColor={selectedColor}
           onColorSelected={color => pickerSelectColor(color)}
           rotationHackFactor={0}
-          style={{flex: 1}}
+          style={{ flex: 1 }}
         />
       </View>
     )
   }
 
   return (
-    <View style={[styles.screen, {flex: 1, padding: 10}]}>
-      <DrawingCanvas/>
+    <View style={[styles.screen, { flex: 1, padding: 10 }]}>
+      <DrawingCanvas />
       <Modal
-          animationType="slide"
-          transparent={true}
-          visible={pickerModalVisible}
-        >
-        <View style={{height:'50%', marginTop:'auto', backgroundColor: 'white', borderRadius: 2, borderTopWidth: 2, borderColor: '#d9d9d9', padding: 24, paddingRight: 50}}>
-          <View style={{ display: 'flex', flexDirection: 'row', gap: 5}}>
-          <View style ={{display:'flex', flexDirection: 'column'}}>
-            <Text style={{ fontSize:18 }}>1. Turn the triangle to change the color</Text>
-            <Text style={{ fontSize:18 }}>2. Drag the circle to select the hue</Text>
-            <Text style={{ fontSize:18 }}>3. Click on the final color on the bottom to select the color</Text>
-          </View>
-          <TouchableOpacity
-              style={[styles.buttonClose, {alignSelf:'flex-start'}]}
+        animationType="slide"
+        transparent={true}
+        visible={pickerModalVisible}
+      >
+        <View style={{ height: '50%', marginTop: 'auto', backgroundColor: 'white', borderRadius: 2, borderTopWidth: 2, borderColor: '#d9d9d9', padding: 24, paddingRight: 50 }}>
+          <View style={{ display: 'flex', flexDirection: 'row', gap: 5 }}>
+            <View style={{ display: 'flex', flexDirection: 'column' }}>
+              <Text style={{ fontSize: 18 }}>1. Turn the triangle to change the color</Text>
+              <Text style={{ fontSize: 18 }}>2. Drag the circle to select the hue</Text>
+              <Text style={{ fontSize: 18 }}>3. Click on the final color on the bottom to select the color</Text>
+            </View>
+            <TouchableOpacity
+              style={[styles.buttonClose, { alignSelf: 'flex-start' }]}
               onPress={() => setPickerModalVisible(!pickerModalVisible)}>
               <Icon size={20} type="ionicon" name="close" />
-          </TouchableOpacity>
+            </TouchableOpacity>
           </View>
-          <Picker/>
+          <Picker />
         </View>
       </Modal>
-    </View> 
+    </View>
   )
 }
 
-    /*<View style={styles.screen}>
-      <DrawingCanvas/>
-    </View>*/
+/*<View style={styles.screen}>
+  <DrawingCanvas/>
+</View>*/
 
 
 
@@ -405,7 +406,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 0.5,
     alignItems: 'center',
     backgroundColor: '#ffffff',
-    flexDirection:"row",
+    flexDirection: "row",
   },
   picker: {
     flex: 1,
@@ -427,7 +428,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 0.5,
     alignItems: 'center',
     backgroundColor: '#ffffff',
-    flexDirection:"row",
+    flexDirection: "row",
     borderTopLeftRadius: 7,
     borderTopRightRadius: 7,
     borderBottomLeftRadius: 7,
@@ -439,7 +440,7 @@ const styles = StyleSheet.create({
     height: 44,
     alignItems: 'center',
     backgroundColor: nonSelectColor,
-    flexDirection:"row",
+    flexDirection: "row",
     marginHorizontal: 5,
     paddingHorizontal: 10,
     borderTopLeftRadius: 7,
@@ -451,15 +452,15 @@ const styles = StyleSheet.create({
   },
   row: {
     alignItems: 'center',
-    flexDirection:"row",
+    flexDirection: "row",
   },
   drawingCanvas: {
     alignItems: 'center',
-    display:'flex',
+    display: 'flex',
     flexDirection: 'column'
   },
   toolbar: {
-    flexDirection:"row",
+    flexDirection: "row",
     margin: 5,
   },
   buttonText: {
@@ -476,8 +477,8 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   // screenshot styles
-   viewShot: {
-    display:'flex',
+  viewShot: {
+    display: 'flex',
     alignItems: 'center',
     width: 400,
     height: 400,
