@@ -30,7 +30,7 @@ export default function App() {
     console.log("addedDrawing:", drawing.name)
   }
   const removeDrawing = (drawing) => {
-    setSelectedFriends(drawings => drawings.filter(x => x.name != drawing.name))
+    setDrawings(drawings => drawings.filter(x => x.name != drawing.name))
     console.log("removeDrawing:", drawing.name)
   }
   return (

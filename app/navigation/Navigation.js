@@ -67,7 +67,10 @@ export default Navigation = ({ drawings, addDrawing, removeDrawing }) => {
                     ),
 
                 }}
-                component={({ navigation }) => <Home navigation={navigation} drawings={drawings} />} />
+            // component={({ navigation }) => <Home navigation={navigation} drawings={drawings} />} 
+            >
+                {({ navigation }) => <Home navigation={navigation} drawings={drawings} />}
+            </Drawer.Screen>
             <Drawer.Screen
                 name="Canvas"
                 options={{
@@ -81,7 +84,10 @@ export default Navigation = ({ drawings, addDrawing, removeDrawing }) => {
                         />
                     ),
                 }}
-                component={({ route }) => <Canvas route={route} addDrawing={addDrawing} />} />
+            // component={({ route }) => <Canvas route={route} addDrawing={addDrawing} />} 
+            >
+                {({ route }) => <Canvas route={route} addDrawing={addDrawing} />}
+            </Drawer.Screen>
             <Drawer.Screen
                 name="Gallery"
                 options={{
@@ -95,7 +101,10 @@ export default Navigation = ({ drawings, addDrawing, removeDrawing }) => {
                         />
                     ),
                 }}
-                component={({ navigation }) => <Gallery navigation={navigation} drawings={drawings} />} />
+            // component={({ navigation }) => <Gallery navigation={navigation} drawings={drawings} />} 
+            >
+                {({ navigation }) => <Gallery removeDrawing={removeDrawing} navigation={navigation} drawings={drawings} />}
+            </Drawer.Screen>
             <Drawer.Screen
                 name="Lessons"
                 options={{
@@ -123,7 +132,10 @@ export default Navigation = ({ drawings, addDrawing, removeDrawing }) => {
                         />
                     ),
                 }}
-                component={Collaborate} />
+            // component={({ route, navigation }) => <Collaborate showModal={true} navigation={navigation} route={route} drawings={drawings} />} 
+            >
+                {({ route, navigation }) => <Collaborate showModal={true} navigation={navigation} route={route} drawings={drawings} />}
+            </Drawer.Screen>
             <Drawer.Screen
                 name="Share"
                 options={{
@@ -137,8 +149,10 @@ export default Navigation = ({ drawings, addDrawing, removeDrawing }) => {
                         />
                     ),
                 }}
-                component={({ navigation, route }) => <Share route={route} navigation={navigation} buttonText="Next" drawings={drawings} />}
-            />
+            // component={({ navigation, route }) => <Share showModal={true} route={route} navigation={navigation} buttonText="Next" drawings={drawings} />}
+            >
+                {({ navigation, route }) => <Share showModal={true} route={route} navigation={navigation} buttonText="Next" drawings={drawings} />}
+            </Drawer.Screen>
         </Drawer.Navigator >
     );
 }

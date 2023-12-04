@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Modal, TouchableWithoutFeedback, TouchableOpacity, Image } from 'react-native'
+import { Modal, TouchableWithoutFeedback, TouchableOpacity, Image, SafeAreaView, TextInput } from 'react-native'
 import { StyleSheet, View } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { TriangleColorPicker, toHsv } from 'react-native-color-picker'
@@ -7,6 +7,7 @@ import ViewShot from 'react-native-view-shot'
 import Button from '../components/Button'
 import Text from '../components/Text'
 import * as MediaLibrary from 'expo-media-library';
+import * as FileSystem from 'expo-file-system';
 
 const NUM_ROWS = 8
 const NUM_COLS = 8
@@ -38,7 +39,11 @@ var Redos = new Array;
 
 export default Canvas = ({ addDrawing, navigation, route }) => {
   const selectedDrawing = route?.params?.selectedDrawing ? route.params.selectedDrawing : null;
+  console.log("selectedDRawing", selectedDrawing)
   /********** Stuff for screen capture ***********/
+  const [name, setName] = useState('');
+  const [editName, setEditName] = useState(false);
+  const [nameDialogVisible, setNameDialogVisible] = useState(false);
   const [previewModalVisible, setPreviewModalVisible] = useState(false);
   const [pickerModalVisible, setPickerModalVisible] = useState(false);
 
@@ -55,9 +60,14 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
   useEffect(() => {
     // declare the data fetching function
     const saveImage = async () => {
+      // const localuri = await FileSystem.downloadAsync(uri, FileSystem.documentDirectory + uri)
+      // const asset = await MediaLibrary.createAssetAsync(localuri)
+      // const album = await MediaLibrary.createAlbumAsync("ArtSquared", asset);
       const data = await MediaLibrary.saveToLibraryAsync(uri);
-      addDrawing({ uri: uri, name: Date.now().toString(15), pixels: null })
-      alert("Saved!");
+      if (!name) {
+        setNameDialogVisible(true)
+      }
+      addDrawing({ uri: uri, data: data, name: name, pixels: null })
     }
 
     // call the function
@@ -265,6 +275,35 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
   DrawingCanvas = props => {
     return (
       <View style={styles.drawingCanvas}>
+        {(!name || editName) &&
+          <TextInput
+            style={[styles.input, name === '' || editName ? {
+              borderWidth: 1,
+              backgroundColor: 'white',
+              borderRadius: 5,
+              color: 'gray',
+              width: '100%'
+            } : null]}
+            // onChangeText={onChangeText}
+            onSubmitEditing={(value) => { setName(value.nativeEvent.text); setEditName(false) }}
+            placeholder="Name your drawing..."
+            placeholderTextColor="gray"
+          />
+        }
+        {(name && !editName) &&
+          <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline' }}>
+            <TouchableOpacity
+              onPress={() => { setEditName(true) }}>
+              <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
+                <Icon
+                  size={24}
+                  type="ionicon"
+                  name={Platform.OS === "ios" ? "ios-create-outline" : "md-create-outline"}
+                />
+              </View>
+            </TouchableOpacity>
+            <Text style={styles.input}>{name}</Text>
+          </View>}
         {selectedDrawing && <Text>{selectedDrawing.name}</Text>}
         <ViewShot ref={viewShot} style={styles.viewShot}>
           <Row row={0} />
@@ -469,6 +508,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     padding: 10,
     color: 'gray',
+  },
+  input: {
+    height: 40,
+    marginBottom: 20,
+    padding: 10,
+    fontSize: 24,
   },
   // modal styles
   buttonClose: {
