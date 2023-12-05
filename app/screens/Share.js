@@ -15,11 +15,12 @@ import * as ImagePicker from 'expo-image-picker';
 //     <FriendList buttonText="Next" imageTitle="Dinosaur" />
 //   </Content>
 // )
-export default Share = ({ route, buttonText, drawings }) => {
+export default Share = ({ showModal, navigation, route, buttonText, drawings }) => {
   // image is {name: string, uri: string}
   const [image, setImage] = useState({ name: drawings[0].name, uri: drawings[0].uri });
   const selectedDrawing = route?.params?.selectedDrawing ? route.params.selectedDrawing : null;
-  console.log("selectedDrawing", route, selectedDrawing)
+  const modalShow = route?.params?.showModal === false ? route.params?.showModal : null;
+  console.log("modalShow", modalShow)
   // const pickImage = async () => {
   //   // No permissions request is necessary for launching the image library
   //   let result = await ImagePicker.launchImageLibraryAsync({
@@ -35,8 +36,11 @@ export default Share = ({ route, buttonText, drawings }) => {
   //     setImage(result.assets[0].uri);
   //   }
   // };
-
-
+  useEffect(() => {
+    if (selectedDrawing) {
+      setImage(selectedDrawing);
+    }
+  }, [selectedDrawing])
 
   const [isAvailable, setIsAvailable] = useState(false);
   const [modalVisible, setModalVisible] = useState(!selectedDrawing);
@@ -63,6 +67,15 @@ export default Share = ({ route, buttonText, drawings }) => {
       .catch(console.error);
   }, [])
 
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      if (modalShow !== false)
+        setModalVisible(showModal)
+    });
+    return unsubscribe;
+  }, [navigation])
+
+
   // useEffect(async () => {
   //   const isSmsAvailable = await SMS.isAvailableAsync();
   //   setIsAvailable(isSmsAvailable)
@@ -81,15 +94,18 @@ export default Share = ({ route, buttonText, drawings }) => {
           uri: image.uri,
           mimeType: 'image/png',
           filename: `${image.name}.png`,
+          data: image.data
         },
       }
+    ).catch(
+      console.error
     )
     console.log(result)
   }
 
   return (
     <Content>
-      <Text>Select Friends</Text>
+      <Text bold>Select friends</Text>
 
       <Modal
         animationType="none"
@@ -97,7 +113,7 @@ export default Share = ({ route, buttonText, drawings }) => {
         visible={modalVisible}
       >
         <Content style={{ display: 'flex', flexDirection: 'column', flex: 1, alignItems: "center", paddingTop: 20, gap: 20 }}>
-          <Text style={{ fontSize: 30 }}>Select an image</Text>
+          <Text bold style={{ fontSize: 30 }}>Select an image</Text>
           <ScrollView vertical showsVerticalScrollIndicator={false}>
 
             <View style={{ width: "100%", display: 'flex', flexWrap: 'wrap', flexDirection: 'row', rowGap: 30 }}>

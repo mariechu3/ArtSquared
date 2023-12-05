@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import Text from '../components/Text'
-import { Image, TouchableOpacity, Modal, StyleSheet, View } from 'react-native'
+import { Image, TouchableOpacity, Modal, StyleSheet, View, Alert } from 'react-native'
 import images from '../Variables/Images'
 import { Icon } from 'react-native-elements'
 import { ScrollView } from 'react-native-gesture-handler'
+import Dialog from 'react-native-dialog'
 
-export default Gallery = ({ drawings, navigation, screen }) => {
+export default Gallery = ({ removeDrawing, drawings, navigation, screen }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedDrawing, setSelectedDrawing] = useState(null);
+  const [deleteDialogVisible, setDeleteDialogVisible] = useState(false)
 
   return (
     <ScrollView vertical showsVerticalScrollIndicator={false}>
@@ -20,6 +22,14 @@ export default Gallery = ({ drawings, navigation, screen }) => {
             </TouchableOpacity>
           );
         })}
+        <Dialog.Container visible={deleteDialogVisible}>
+          <Dialog.Title>Delete drawing</Dialog.Title>
+          <Dialog.Description>
+            {`Are you sure you want to delete ${selectedDrawing?.name}?`}
+          </Dialog.Description>
+          <Dialog.Button label="Cancel" onPress={() => setDeleteDialogVisible(false)} />
+          <Dialog.Button label="Delete" onPress={() => { removeDrawing(selectedDrawing); setDeleteDialogVisible(false) }} />
+        </Dialog.Container>
         <Modal
           animationType="slide"
           transparent={true}
@@ -35,7 +45,7 @@ export default Gallery = ({ drawings, navigation, screen }) => {
               <TouchableOpacity
                 style={styles.action}
                 onPress={() => {
-                  navigation.navigate('Canvas', { selectedDrawing: selectedDrawing });
+                  navigation.navigate('Canvas', { showModal: false, selectedDrawing: selectedDrawing });
                   setModalVisible(!modalVisible)
                 }}>
                 <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
@@ -52,7 +62,7 @@ export default Gallery = ({ drawings, navigation, screen }) => {
               <TouchableOpacity
                 style={styles.action}
                 onPress={() => {
-                  navigation.navigate('Share', { selectedDrawing: selectedDrawing });
+                  navigation.navigate('Share', { showModal: false, selectedDrawing: selectedDrawing });
                   setModalVisible(!modalVisible)
                 }}>
                 <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
@@ -68,7 +78,7 @@ export default Gallery = ({ drawings, navigation, screen }) => {
               <View style={styles.divider}></View>
               <TouchableOpacity
                 style={styles.action}
-                onPress={() => { navigation.navigate('Collaborate'); setModalVisible(!modalVisible) }}>
+                onPress={() => { navigation.navigate('Collaborate', { showModal: false, selectedDrawing: selectedDrawing }); setModalVisible(!modalVisible) }}>
                 <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
                   <Icon
                     size={24}
@@ -81,7 +91,7 @@ export default Gallery = ({ drawings, navigation, screen }) => {
               <View style={styles.divider}></View>
               <TouchableOpacity
                 style={styles.action}
-                onPress={() => { setModalVisible(!modalVisible) }}>
+                onPress={() => { setModalVisible(!modalVisible); setDeleteDialogVisible(true) }}>
                 <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
                   <Icon
                     size={24}

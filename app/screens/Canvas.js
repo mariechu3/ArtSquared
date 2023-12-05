@@ -7,6 +7,9 @@ import ViewShot from 'react-native-view-shot'
 import Button from '../components/Button'
 import Text from '../components/Text'
 import * as MediaLibrary from 'expo-media-library';
+import * as FileSystem from 'expo-file-system';
+import Dialog from 'react-native-dialog'
+import TextInput from '../components/TextInput'
 
 const NUM_ROWS = 8
 const NUM_COLS = 8
@@ -39,6 +42,9 @@ var Redos = new Array;
 export default Canvas = ({ addDrawing, navigation, route }) => {
   const selectedDrawing = route?.params?.selectedDrawing ? route.params.selectedDrawing : null;
   /********** Stuff for screen capture ***********/
+  const [name, setName] = useState('');
+  const [editName, setEditName] = useState(false);
+  const [nameDialogVisible, setNameDialogVisible] = useState(false);
   const [previewModalVisible, setPreviewModalVisible] = useState(false);
   const [pickerModalVisible, setPickerModalVisible] = useState(false);
 
@@ -48,24 +54,39 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
     viewShot.current.capture().then((uri) => {
       setUri(uri);
       setPreviewModalVisible(true)
+      const data = MediaLibrary.saveToLibraryAsync(uri);
+      addDrawing({
+        uri: uri, name: name ? name : 'Untitiled', pixels: null
+      })
 
-    });
+    }).catch(console.error);
   };
 
-  useEffect(() => {
-    // declare the data fetching function
-    const saveImage = async () => {
-      const data = await MediaLibrary.saveToLibraryAsync(uri);
-      addDrawing({ uri: uri, name: Date.now().toString(15), pixels: null })
-      alert("Saved!");
-    }
+  // useEffect(() => {
+  //   // declare the data fetching function
+  //   const saveImage = async () => {
+  //     // const localuri = await FileSystem.downloadAsync(uri, FileSystem.documentDirectory + uri)
+  //     // const asset = await MediaLibrary.createAssetAsync(localuri)
+  //     // const album = await MediaLibrary.createAlbumAsync("ArtSquared", asset);
+  //     const data = await MediaLibrary.saveToLibraryAsync(uri);
+  //     console.log(data)
+  //     // if (!name) {
+  //     //   console.log("here")
+  //     //   setNameDialogVisible(true)
+  //     // }
+  //     // else {
+  //     // setPreviewModalVisible(true)
 
-    // call the function
-    saveImage()
-      // make sure to catch any error
-      .catch(console.error);
+  //     addDrawing({ uri: uri, data: data, name: name ? name : 'Untitiled', pixels: null })
+  //     // }
+  //   }
 
-  }, [uri])
+  // call the function
+  //   saveImage()
+  //     // make sure to catch any error
+  //     .catch("this is the error", console.error);
+
+  // }, [uri])
 
 
   /**********************************************/
@@ -265,6 +286,38 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
   DrawingCanvas = props => {
     return (
       <View style={styles.drawingCanvas}>
+        {(!name || editName) &&
+          <TextInput
+            style={[name === '' || editName ? {
+              borderWidth: 1,
+              backgroundColor: 'white',
+              borderRadius: 5,
+              color: 'gray',
+              width: 'auto',
+              fontSize: 20,
+              padding: 5,
+              marginBottom: 17
+            } : null]}
+            // onChangeText={onChangeText}
+            onSubmitEditing={(value) => { setName(value.nativeEvent.text); setEditName(false) }}
+            placeholder="Name your drawing..."
+            placeholderTextColor="gray"
+          />
+        }
+        {(name && !editName) &&
+          <TouchableOpacity
+            onPress={() => { setEditName(true) }} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline', marginBottom: 20 }}>
+
+              <Icon
+                size={30}
+                type="ionicon"
+                name={Platform.OS === "ios" ? "ios-create-outline" : "md-create-outline"}
+              />
+              <Text style={{ alignSelf: 'center', fontSize: 24 }}>{name}</Text>
+            </View>
+          </TouchableOpacity>
+        }
         {selectedDrawing && <Text>{selectedDrawing.name}</Text>}
         <ViewShot ref={viewShot} style={styles.viewShot}>
           <Row row={0} />
@@ -302,7 +355,7 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
           <ColorSelect color={'#000000'} />
         </View>
         {/***** Preview screencapture *****/}
-        <Button textSize={36} onPress={captureScreen}>Save</Button>
+        <Button textSize={24} onPress={captureScreen}>Save</Button>
 
         <Modal
           animationType="slide"
@@ -313,26 +366,66 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
           <View style={styles.modalView}>
             <TouchableOpacity
               style={[styles.button, styles.buttonClose]}
-              onPress={() => setPreviewModalVisible(!previewModalVisible)}>
+              onPress={() => setPreviewModalVisible(false)}
+            >
               <Icon size={20} type="ionicon" name="close" />
             </TouchableOpacity>
-
             <Text>Preview</Text>
-            {uri ? (
+            <View style={{ display: 'flex', flexDirection: 'row-reverse', gap: 20, paddingTop: 10, paddingBottom: 40 }}>
+              <View style={{ display: 'flex', flexDirection: 'column', gap: 20, height: 200, justifyContent: 'space-between' }}>
+                {/* <Button style={{ paddingVertical: 10 }}>Share</Button>
+                <Button style={{ paddingVertical: 10 }}>Collaborate</Button>
+                <Button style={{ paddingVertical: 10 }}>View in Gallery</Button> */}
+                <TouchableOpacity
+                  style={{ backgroundColor: "#d9d9d9", borderRadius: 5, padding: 10 }}
+                  onPress={() => {
+                    navigation.navigate('Share', { showModal: false, selectedDrawing: { uri: uri, name: name ? name : 'Untitiled', pixels: null } });
+                    setPreviewModalVisible(false)
+                  }}>
+                  <Icon
+                    size={30}
+                    type="ionicon"
+                    name={Platform.OS === "ios" ? "ios-share-outline" : "md-share-outline"}
+                  />
 
-              <Image
-                source={{ uri: uri }}
-                style={styles.previewImage}
-                resizeMode="contain"
-              />
-            ) : null}
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{ backgroundColor: "#d9d9d9", borderRadius: 5, padding: 10 }}
+                  onPress={() => { navigation.navigate('Collaborate', { showModal: false, selectedDrawing: { uri: uri, name: name ? name : 'Untitiled', pixels: null } }); setPreviewModalVisible(false) }}>
+                  <Icon
+                    size={30}
+                    type="ionicon"
+                    name={Platform.OS === "ios" ? "ios-people-outline" : "md-people-outline"}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{ backgroundColor: "#d9d9d9", borderRadius: 5, padding: 10 }}
+                  onPress={() => { navigation.navigate('Gallery'); setPreviewModalVisible(false) }}>
+                  <Icon
+                    size={30}
+                    type="ionicon"
+                    name={Platform.OS === "ios" ? "ios-apps-outline" : "md-apps-outline"}
+                  />
+                </TouchableOpacity>
+              </View>
+              {uri ? (
+                <Image
+                  source={{ uri: uri }}
+                  style={styles.previewImage}
+                  resizeMode="contain"
+                />
+              ) : null}
+            </View>
+            {/* <Button textSize={36} onPress={() => {
+              navigation.navigate('Share', { showModal: false, selectedDrawing: { uri: uri, data: data, name: name ? name : 'Untitiled', pixels: null } });
+            }}>Share</Button> */}
 
           </View>
 
         </Modal>
 
         {/***** Preview screencapture *****/}
-      </View>
+      </View >
     );
   }
 
@@ -356,6 +449,23 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
   return (
     <View style={[styles.screen, { flex: 1, padding: 10 }]}>
       <DrawingCanvas />
+      <Dialog.Container visible={nameDialogVisible}>
+        <Dialog.Title>Name your artwork</Dialog.Title>
+        <Dialog.Description>
+          Please give your artwork a name .
+        </Dialog.Description>
+        <Dialog.Input
+          onSubmitEditing={(value) => {
+            setName(value.nativeEvent.text); setEditName(false);
+            addDrawing({ uri: uri, name: name, pixels: null })
+
+          }}
+        >
+          Please give your artwork a name .
+        </Dialog.Input>
+        <Dialog.Button label="Cancel" />
+        <Dialog.Button label="Delete" />
+      </Dialog.Container>
       <Modal
         animationType="slide"
         transparent={true}
@@ -364,9 +474,9 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
         <View style={{ height: '50%', marginTop: 'auto', backgroundColor: 'white', borderRadius: 2, borderTopWidth: 2, borderColor: '#d9d9d9', padding: 24, paddingRight: 50 }}>
           <View style={{ display: 'flex', flexDirection: 'row', gap: 5 }}>
             <View style={{ display: 'flex', flexDirection: 'column' }}>
-              <Text style={{ fontSize: 18 }}>1. Turn the triangle to change the color</Text>
-              <Text style={{ fontSize: 18 }}>2. Drag the circle to select the hue</Text>
-              <Text style={{ fontSize: 18 }}>3. Click on the final color on the bottom to select the color</Text>
+              <Text style={{ fontSize: 16 }}>1. Turn the triangle to change the color</Text>
+              <Text style={{ fontSize: 16 }}>2. Drag the circle to select the hue</Text>
+              <Text style={{ fontSize: 16 }}>3. Click on the final color on the bottom to select the color</Text>
             </View>
             <TouchableOpacity
               style={[styles.buttonClose, { alignSelf: 'flex-start' }]}
@@ -489,7 +599,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 'auto',
-    height: '35%',
+    height: '40%',
     backgroundColor: 'white',
     borderRadius: 5,
     padding: 24,
@@ -503,7 +613,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  previewImage: { width: 200, height: 200, backgroundColor: "#fff" },
+  previewImage: { width: 200, height: 200, backgroundColor: "#fff", borderColor: "black", borderWidth: 2 },
 })
 
 
