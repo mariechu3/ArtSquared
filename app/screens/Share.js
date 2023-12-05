@@ -69,8 +69,8 @@ export default Share = ({ showModal, navigation, route, buttonText, drawings }) 
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      if(modalShow !== false)
-      setModalVisible(showModal)
+      if (modalShow !== false)
+        setModalVisible(showModal)
     });
     return unsubscribe;
   }, [navigation])
@@ -97,13 +97,15 @@ export default Share = ({ showModal, navigation, route, buttonText, drawings }) 
           data: image.data
         },
       }
+    ).catch(
+      console.error
     )
     console.log(result)
   }
 
   return (
     <Content>
-      <Text>Select friends</Text>
+      <Text bold>Select friends</Text>
 
       <Modal
         animationType="none"
@@ -111,7 +113,7 @@ export default Share = ({ showModal, navigation, route, buttonText, drawings }) 
         visible={modalVisible}
       >
         <Content style={{ display: 'flex', flexDirection: 'column', flex: 1, alignItems: "center", paddingTop: 20, gap: 20 }}>
-          <Text style={{ fontSize: 30 }}>Select an image</Text>
+          <Text bold style={{ fontSize: 30 }}>Select an image</Text>
           <ScrollView vertical showsVerticalScrollIndicator={false}>
 
             <View style={{ width: "100%", display: 'flex', flexWrap: 'wrap', flexDirection: 'row', rowGap: 30 }}>

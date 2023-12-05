@@ -42,7 +42,7 @@ export default Collaborate = ({ showModal, route, navigation, drawings }) => {
 
   return (
     <Content>
-      <Text>Select collaborators</Text>
+      <Text bold>Select collaborators</Text>
 
       <Modal
         animationType="none"
@@ -50,7 +50,7 @@ export default Collaborate = ({ showModal, route, navigation, drawings }) => {
         visible={modalVisible}
       >
         <Content style={{ display: 'flex', flexDirection: 'column', flex: 1, alignItems: "center", paddingTop: 20, gap: 20 }}>
-          <Text style={{ fontSize: 30 }}>Select an image</Text>
+          <Text bold style={{ fontSize: 30 }}>Select an image</Text>
           <ScrollView vertical showsVerticalScrollIndicator={false}>
 
             <View style={{ width: "100%", display: 'flex', flexWrap: 'wrap', flexDirection: 'row', rowGap: 30 }}>

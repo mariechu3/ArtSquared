@@ -4,7 +4,7 @@ import Lessons from '../screens/Lessons'
 import Share from '../screens/Share'
 import Collaborate from '../screens/Collaborate'
 import Gallery from '../screens/Gallery'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Image } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import {
@@ -12,6 +12,9 @@ import {
     DrawerContentScrollView,
     DrawerItemList,
 } from '@react-navigation/drawer';
+import images from '../Variables/Images'
+import { useFonts, Mina_400Regular, Mina_700Bold } from '@expo-google-fonts/mina';
+import { NovaSquare_400Regular } from '@expo-google-fonts/nova-square';
 
 const styles = StyleSheet.create({
     menu: {
@@ -30,6 +33,15 @@ function CustomDrawerContent(props) {
 }
 
 export default Navigation = ({ drawings, addDrawing, removeDrawing }) => {
+    let [fontsLoaded, fontError] = useFonts({
+        Mina_400Regular,
+        Mina_700Bold,
+        NovaSquare_400Regular,
+    });
+
+    if (!fontsLoaded && !fontError) {
+        return null;
+    }
     return (
         <Drawer.Navigator
             drawerContent={(props) => <CustomDrawerContent {...props} />}
@@ -39,24 +51,22 @@ export default Navigation = ({ drawings, addDrawing, removeDrawing }) => {
                     backgroundColor: 'white',
                     width: 300,
                 },
-                drawerLabelStyle: {
-                    fontSize: 24,
-                },
                 drawerPosition: "right",
-                headerLeft: () => (<View style={{ paddingRight: 8 }}></View>),
+                headerLeft: () => (<View style={{ paddingLeft: 24 }}><Image style={{ width: 34, height: 34 }} source={images['Logo']}></Image></View>),
 
                 headerRight: (props) => (<TouchableOpacity style={styles.menu} onPress={navigation.toggleDrawer}>
                     <Icon size={44} name='menu' />
                 </TouchableOpacity>),
                 headerTitleAlign: "left",
-                headerTitleStyle: { fontSize: 24 },
+                headerTitleStyle: { fontSize: 24, fontFamily: 'NovaSquare_400Regular' },
             })}
         >
             <Drawer.Screen
                 name="Home"
                 options={{
                     headerTitle: '',
-                    title: 'Home',
+                    drawerLabelStyle: { fontSize: 24, fontFamily: 'Mina_400Regular' },
+                    drawerLabel: 'Home',
                     drawerIcon: ({ focused, size }) => (
                         <Icon
                             style={{ paddingRight: 10 }}
@@ -74,24 +84,26 @@ export default Navigation = ({ drawings, addDrawing, removeDrawing }) => {
             <Drawer.Screen
                 name="Canvas"
                 options={{
-                    title: 'Canvas',
+                    drawerLabelStyle: { fontSize: 24, fontFamily: 'Mina_400Regular' },
+                    drawerLabel: 'Canvas',
                     drawerIcon: ({ focused, size }) => (
                         <Icon
                             style={{ paddingRight: 10 }}
                             size={36}
                             type="ionicon"
-                            name={Platform.OS === "ios" ? "ios-color-palette-outline" : "md-color-palette-outline"}
+                            name={Platform.OS === "ios" ? "ios-easel-outline" : "md-easel-outline"}
                         />
                     ),
                 }}
             // component={({ route }) => <Canvas route={route} addDrawing={addDrawing} />} 
             >
-                {({ route }) => <Canvas route={route} addDrawing={addDrawing} />}
+                {({ route, navigation }) => <Canvas navigation={navigation} route={route} addDrawing={addDrawing} />}
             </Drawer.Screen>
             <Drawer.Screen
                 name="Gallery"
                 options={{
-                    title: 'Gallery',
+                    drawerLabelStyle: { fontSize: 24, fontFamily: 'Mina_400Regular' },
+                    drawerLabel: 'Gallery',
                     drawerIcon: ({ focused, size }) => (
                         <Icon
                             style={{ paddingRight: 10 }}
@@ -108,7 +120,8 @@ export default Navigation = ({ drawings, addDrawing, removeDrawing }) => {
             <Drawer.Screen
                 name="Lessons"
                 options={{
-                    title: 'Lessons',
+                    drawerLabelStyle: { fontSize: 24, fontFamily: 'Mina_400Regular' },
+                    drawerLabel: 'Lessons',
                     drawerIcon: ({ focused, size }) => (
                         <Icon
                             style={{ paddingRight: 10 }}
@@ -122,7 +135,8 @@ export default Navigation = ({ drawings, addDrawing, removeDrawing }) => {
             <Drawer.Screen
                 name="Collaborate"
                 options={{
-                    title: 'Collaborate',
+                    drawerLabelStyle: { fontSize: 24, fontFamily: 'Mina_400Regular' },
+                    drawerLabel: 'Collaborate',
                     drawerIcon: ({ focused, size }) => (
                         <Icon
                             style={{ paddingRight: 10 }}
@@ -139,7 +153,8 @@ export default Navigation = ({ drawings, addDrawing, removeDrawing }) => {
             <Drawer.Screen
                 name="Share"
                 options={{
-                    title: 'Share',
+                    drawerLabelStyle: { fontSize: 24, fontFamily: 'Mina_400Regular' },
+                    drawerLabel: 'Share',
                     drawerIcon: ({ focused, size }) => (
                         <Icon
                             style={{ paddingRight: 10 }}
