@@ -52,7 +52,9 @@ export default Navigation = ({ drawings, addDrawing, removeDrawing }) => {
                     width: 300,
                 },
                 drawerPosition: "right",
-                headerLeft: () => (<View style={{ paddingLeft: 24 }}><Image style={{ width: 34, height: 34 }} source={images['Logo']}></Image></View>),
+                headerLeft: () => (
+                    <View style={{ paddingLeft: 24 }}><Image style={{ width: 35, height: 35 }} source={images['LogoCircle']}></Image></View>
+                ),
 
                 headerRight: (props) => (<TouchableOpacity style={styles.menu} onPress={navigation.toggleDrawer}>
                     <Icon size={44} name='menu' />
