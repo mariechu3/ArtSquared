@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Modal, TouchableWithoutFeedback, TouchableOpacity, Image } from 'react-native'
+import { Modal, TouchableWithoutFeedback, TouchableOpacity, Image, ScrollView } from 'react-native'
 import { StyleSheet, View } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { TriangleColorPicker, toHsv } from 'react-native-color-picker'
@@ -10,6 +10,7 @@ import * as MediaLibrary from 'expo-media-library';
 import * as FileSystem from 'expo-file-system';
 import Dialog from 'react-native-dialog'
 import TextInput from '../components/TextInput'
+import images from '../Variables/Images'
 
 const NUM_ROWS = 8
 const NUM_COLS = 8
@@ -41,6 +42,10 @@ var Redos = new Array;
 
 export default Canvas = ({ addDrawing, navigation, route }) => {
   const selectedDrawing = route?.params?.selectedDrawing ? route.params.selectedDrawing : null;
+  const selectedFriends = route?.params?.selectedFriends ? route.params.selectedFriends : null;
+  console.log("selectedFriends Canvas:", selectedFriends)
+  console.log("selectedDrawing Canvas:", selectedDrawing)
+
   /********** Stuff for screen capture ***********/
   const [name, setName] = useState('');
   const [editName, setEditName] = useState(false);
@@ -286,39 +291,57 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
   DrawingCanvas = props => {
     return (
       <View style={styles.drawingCanvas}>
-        {(!name || editName) &&
-          <TextInput
-            style={[name === '' || editName ? {
-              borderWidth: 1,
-              backgroundColor: 'white',
-              borderRadius: 5,
-              color: 'gray',
-              width: 'auto',
-              fontSize: 20,
-              padding: 5,
-              marginBottom: 17
-            } : null]}
-            // onChangeText={onChangeText}
-            onSubmitEditing={(value) => { setName(value.nativeEvent.text); setEditName(false) }}
-            placeholder="Name your drawing..."
-            placeholderTextColor="gray"
-          />
-        }
-        {(name && !editName) &&
-          <TouchableOpacity
-            onPress={() => { setEditName(true) }} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline', marginBottom: 20 }}>
+        <View style={{ display: "flex", flexDirection: "row", width: "100%", marginBottom: 20, alignItems: 'center' }}>
+          {(!selectedDrawing && !name || editName) &&
+            <TextInput
+              style={[name === '' || editName ? {
+                borderWidth: 1,
+                backgroundColor: 'white',
+                borderRadius: 5,
+                color: 'gray',
+                width: 'auto',
+                fontSize: 20,
+                padding: 5,
+                marginBottom: 17,
+                flexGrow: 1
+                // width:'100%'
+              } : null]}
+              // onChangeText={onChangeText}
+              onSubmitEditing={(value) => { setName(value.nativeEvent.text); setEditName(false) }}
+              placeholder="Name your drawing..."
+              placeholderTextColor="gray"
+            />
+          }
+          {((selectedDrawing || name) && !editName) &&
+            <View style={{ display: "flex", flexDirection: "row", flex: 1 }}>
+              <TouchableOpacity
+                onPress={() => { setEditName(true) }} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline' }}>
 
-              <Icon
-                size={30}
-                type="ionicon"
-                name={Platform.OS === "ios" ? "ios-create-outline" : "md-create-outline"}
-              />
-              <Text style={{ alignSelf: 'center', fontSize: 24 }}>{name}</Text>
+                  <Icon
+                    size={30}
+                    type="ionicon"
+                    name={Platform.OS === "ios" ? "ios-create-outline" : "md-create-outline"}
+                  />
+                  <Text style={{ alignSelf: 'center', fontSize: 24 }}>{selectedDrawing?.name ?? name}</Text>
+                </View>
+              </TouchableOpacity>
             </View>
-          </TouchableOpacity>
-        }
-        {selectedDrawing && <Text>{selectedDrawing.name}</Text>}
+          }
+          {selectedFriends &&
+            <View style={{ width: 150 }}>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} >
+                <View style={{ display: "flex", flexDirection: "row", gap: 5 }}>
+                  {[...selectedFriends].map(friend =>
+                    <TouchableOpacity onPress={() => navigation.navigate('Chat', { friend: friend })}>
+                      <Image style={{ width: 40, height: 40 }} source={images[`${friend}Active`]} />
+                    </TouchableOpacity>
+                  )}
+                </View>
+              </ScrollView>
+            </View>
+          }
+        </View>
         <ViewShot ref={viewShot} style={styles.viewShot}>
           <Row row={0} />
           <Row row={1} />
@@ -395,7 +418,7 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
                   <Icon
                     size={30}
                     type="ionicon"
-                    name={Platform.OS === "ios" ? "ios-people-outline" : "md-people-outline"}
+                    name={Platform.OS === "ios" ? "ios-person-add-outline" : "md-person-add-outline"}
                   />
                 </TouchableOpacity>
                 <TouchableOpacity

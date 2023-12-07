@@ -15,12 +15,16 @@ import * as ImagePicker from 'expo-image-picker';
 //     <FriendList buttonText="Next" imageTitle="Dinosaur" />
 //   </Content>
 // )
-export default Share = ({ showModal, navigation, route, buttonText, drawings }) => {
+export default Share = ({ navigation, route, buttonText, drawings }) => {
   // image is {name: string, uri: string}
   const [image, setImage] = useState({ name: drawings[0].name, uri: drawings[0].uri });
   const selectedDrawing = route?.params?.selectedDrawing ? route.params.selectedDrawing : null;
-  const modalShow = route?.params?.showModal === false ? route.params?.showModal : null;
-  console.log("modalShow", modalShow)
+  const showModal = route?.params?.showModal === false ? route.params?.showModal : null;
+  console.log("showModal", showModal)
+  const { fromGallery } = route.params
+
+  const [modalVisible, setModalVisible] = useState(true);
+
   // const pickImage = async () => {
   //   // No permissions request is necessary for launching the image library
   //   let result = await ImagePicker.launchImageLibraryAsync({
@@ -37,13 +41,22 @@ export default Share = ({ showModal, navigation, route, buttonText, drawings }) 
   //   }
   // };
   useEffect(() => {
+    if (fromGallery) {
+      console.log("fromGallery")
+      setModalVisible(false)
+    }
+    else{
+      console.log("not from gallery")
+      setModalVisible(true)
+    }
+  }, [fromGallery])
+  useEffect(() => {
     if (selectedDrawing) {
       setImage(selectedDrawing);
     }
   }, [selectedDrawing])
 
   const [isAvailable, setIsAvailable] = useState(false);
-  const [modalVisible, setModalVisible] = useState(!selectedDrawing);
   const [selectedFriends, setSelectedFriends] = useState(new Set())
   const addFriend = (name) => {
     setSelectedFriends(friends => new Set([...friends, name]))
@@ -67,13 +80,21 @@ export default Share = ({ showModal, navigation, route, buttonText, drawings }) 
       .catch(console.error);
   }, [])
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      if (modalShow !== false)
-        setModalVisible(showModal)
-    });
-    return unsubscribe;
-  }, [navigation])
+  // useEffect(() => {
+  //   const unsubscribe = navigation.addListener('focus', () => {
+  //     // if (showModal !== false) {
+  //     //   setModalVisible(true)
+  //     //   console.log("collab: this runs", showModal, selectedDrawing)
+  //     // }
+  //     // else {
+  //     //   setModalVisible(false)
+  //     // }
+  //     if(!fromGallery)
+  //     setModalVisible(true)
+
+  //   });
+  //   return unsubscribe;
+  // }, [navigation])
 
 
   // useEffect(async () => {
@@ -110,7 +131,7 @@ export default Share = ({ showModal, navigation, route, buttonText, drawings }) 
       <Modal
         animationType="none"
         transparent={false}
-        visible={modalVisible}
+        visible={false}
       >
         <Content style={{ display: 'flex', flexDirection: 'column', flex: 1, alignItems: "center", paddingTop: 20, gap: 20 }}>
           <Text bold style={{ fontSize: 30 }}>Select an image</Text>

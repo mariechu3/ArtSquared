@@ -4,6 +4,9 @@ import Lessons from '../screens/Lessons'
 import Share from '../screens/Share'
 import Collaborate from '../screens/Collaborate'
 import Gallery from '../screens/Gallery'
+import Friends from '../screens/Friends'
+import Messages from '../screens/Messages'
+import Chat from '../screens/Chat'
 import { StyleSheet, View, Image } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { TouchableOpacity } from 'react-native-gesture-handler'
@@ -11,16 +14,11 @@ import {
     createDrawerNavigator,
     DrawerContentScrollView,
     DrawerItemList,
+    DrawerItems
 } from '@react-navigation/drawer';
 import images from '../Variables/Images'
 import { useFonts, Mina_400Regular, Mina_700Bold } from '@expo-google-fonts/mina';
 import { NovaSquare_400Regular } from '@expo-google-fonts/nova-square';
-
-const styles = StyleSheet.create({
-    menu: {
-        paddingRight: 24
-    }
-})
 
 const Drawer = createDrawerNavigator();
 
@@ -56,11 +54,25 @@ export default Navigation = ({ drawings, addDrawing, removeDrawing }) => {
                     <View style={{ paddingLeft: 24 }}><Image style={{ width: 35, height: 35 }} source={images['LogoCircle']}></Image></View>
                 ),
 
-                headerRight: (props) => (<TouchableOpacity style={styles.menu} onPress={navigation.toggleDrawer}>
-                    <Icon size={44} name='menu' />
-                </TouchableOpacity>),
+                headerRight: (props) => (<View style={{ display: "flex", flexDirection: "row", alignItems: "baseline", gap: 10 }}>
+                    <TouchableOpacity onPress={() => navigation.navigate("Messages")}>
+                        <Icon
+                            size={34}
+                            type="ionicon"
+                            name={Platform.OS === "ios" ? "ios-chatbubble-ellipses-outline" : "md-chatbubble-ellipses-outline"}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{ paddingRight: 24 }} onPress={navigation.toggleDrawer}>
+                        <Icon
+                            size={44}
+                            type="ionicon"
+                            name={Platform.OS === "ios" ? "ios-menu-outline" : "md-cmenu-outline"}
+                        />
+                    </TouchableOpacity></View>),
                 headerTitleAlign: "left",
-                headerTitleStyle: { fontSize: 24, fontFamily: 'NovaSquare_400Regular' },
+                headerTitleStyle: {
+                    fontSize: 24, fontFamily: 'NovaSquare_400Regular'
+                },
             })}
         >
             <Drawer.Screen
@@ -102,6 +114,56 @@ export default Navigation = ({ drawings, addDrawing, removeDrawing }) => {
                 {({ route, navigation }) => <Canvas navigation={navigation} route={route} addDrawing={addDrawing} />}
             </Drawer.Screen>
             <Drawer.Screen
+                name="Friends"
+                options={{
+                    drawerLabelStyle: { fontSize: 24, fontFamily: 'Mina_400Regular' },
+                    drawerLabel: 'Friends',
+                    drawerIcon: ({ focused, size }) => (
+                        <Icon
+                            style={{ paddingRight: 10 }}
+                            size={36}
+                            type="ionicon"
+                            name={Platform.OS === "ios" ? "ios-people-outline" : "md-people-outline"}
+                        />
+                    ),
+                }}
+                component={Friends}
+            />
+            <Drawer.Screen
+                name="Messages"
+                options={{
+                    drawerLabelStyle: { fontSize: 24, fontFamily: 'Mina_400Regular' },
+                    drawerLabel: 'Messages',
+                    drawerIcon: ({ focused, size }) => (
+                        <Icon
+                            style={{ paddingRight: 10 }}
+                            size={36}
+                            type="ionicon"
+                            name={Platform.OS === "ios" ? "ios-chatbubble-ellipses-outline" : "md-chatbubble-ellipses-outline"}
+                        />
+                    ),
+                }}
+                component={Messages}
+            />
+            <Drawer.Screen
+                name="Chat"
+                options={{
+                    drawerLabelStyle: { fontSize: 24, fontFamily: 'Mina_400Regular' },
+                    drawerLabel: 'Chat',
+                    drawerItemStyle: { display: 'none' },
+                    drawerIcon: ({ focused, size }) => (
+                        <Icon
+                            style={{ paddingRight: 10 }}
+                            size={36}
+                            type="ionicon"
+                            name={Platform.OS === "ios" ? "ios-chatbubble-ellipses-outline" : "md-chatbubble-ellipses-outline"}
+                        />
+                    ),
+                }}
+            >
+                {({ route }) => <Chat route={route} />}
+            </Drawer.Screen>
+            <Drawer.Screen
                 name="Gallery"
                 options={{
                     drawerLabelStyle: { fontSize: 24, fontFamily: 'Mina_400Regular' },
@@ -136,39 +198,43 @@ export default Navigation = ({ drawings, addDrawing, removeDrawing }) => {
                 component={Lessons} />
             <Drawer.Screen
                 name="Collaborate"
+                initialParams={{ fromGallery: false }}
                 options={{
-                    drawerLabelStyle: { fontSize: 24, fontFamily: 'Mina_400Regular' },
+                    // drawerLabelStyle: { fontSize: 24, fontFamily: 'Mina_400Regular', display: 'none' },
+                    drawerItemStyle: { display: 'none' },
                     drawerLabel: 'Collaborate',
-                    drawerIcon: ({ focused, size }) => (
-                        <Icon
-                            style={{ paddingRight: 10 }}
-                            size={36}
-                            type="ionicon"
-                            name={Platform.OS === "ios" ? "ios-people-outline" : "md-people-outline"}
-                        />
-                    ),
+                    // drawerIcon: ({ focused, size }) => (
+                    //     <Icon
+                    //         style={{ paddingRight: 10 }}
+                    //         size={36}
+                    //         type="ionicon"
+                    //         name={Platform.OS === "ios" ? "ios-people-outline" : "md-people-outline"}
+                    //     />
+                    // ),
                 }}
             // component={({ route, navigation }) => <Collaborate showModal={true} navigation={navigation} route={route} drawings={drawings} />} 
             >
-                {({ route, navigation }) => <Collaborate showModal={true} navigation={navigation} route={route} drawings={drawings} />}
+                {({ route, navigation }) => <Collaborate navigation={navigation} route={route} drawings={drawings} />}
             </Drawer.Screen>
             <Drawer.Screen
                 name="Share"
+                initialParams={{ fromGallery: false }}
                 options={{
-                    drawerLabelStyle: { fontSize: 24, fontFamily: 'Mina_400Regular' },
+                    // drawerLabelStyle: { fontSize: 24, fontFamily: 'Mina_400Regular', display: 'none' },
+                    drawerItemStyle: { display: 'none' },
                     drawerLabel: 'Share',
-                    drawerIcon: ({ focused, size }) => (
-                        <Icon
-                            style={{ paddingRight: 10 }}
-                            size={36}
-                            type="ionicon"
-                            name={Platform.OS === "ios" ? "ios-share-outline" : "md-share-outline"}
-                        />
-                    ),
+                    // drawerIcon: ({ focused, size }) => (
+                    //     <Icon
+                    //         style={{ paddingRight: 10 }}
+                    //         size={36}
+                    //         type="ionicon"
+                    //         name={Platform.OS === "ios" ? "ios-share-outline" : "md-share-outline"}
+                    //     />
+                    // ),
                 }}
             // component={({ navigation, route }) => <Share showModal={true} route={route} navigation={navigation} buttonText="Next" drawings={drawings} />}
             >
-                {({ navigation, route }) => <Share showModal={true} route={route} navigation={navigation} buttonText="Next" drawings={drawings} />}
+                {({ navigation, route }) => <Share route={route} navigation={navigation} buttonText="Next" drawings={drawings} />}
             </Drawer.Screen>
         </Drawer.Navigator >
     );

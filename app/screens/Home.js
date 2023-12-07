@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Content from '../components/Content'
 import { StyleSheet, View, Image } from 'react-native';
 import Button from '../components/Button';
@@ -16,14 +16,18 @@ const styles = StyleSheet.create({
   }
 })
 
+
+
 export default Home = ({ drawings, navigation, screen }) => {
+  const [pictureUri, setPictureUri] = useState(drawings[Math.floor(Math.random() * drawings.length)].uri)
+
   return (
     <Content style={{ display: 'flex', flexDirection: 'column', gap: 40, alignItems: 'center', flex: 1 }}>
       {/* <Text bold style={[styles.title, { fontSize: 56, fontFamily: 'Mina_700Bold' }]}>Art^2</Text> */}
-      <Image style={{ width: 170, height: 80, marginTop:40 }} source={images['Logo']}></Image>
+      <Image style={{ width: 170, height: 80, marginTop: 40 }} source={images['Logo']}></Image>
 
       <View style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Image style={styles.image} source={{ uri: drawings[Math.floor(Math.random() * drawings.length)].uri }} />
+        <Image style={styles.image} source={{ uri: pictureUri }} />
       </View>
       <View style={{ display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'center' }}>
         <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
@@ -31,7 +35,8 @@ export default Home = ({ drawings, navigation, screen }) => {
           <Button style={{ width: 150 }} textSize={24} onPress={() => navigation.navigate("Lessons")}>Lessons</Button>
         </View>
         <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
-          <Button style={{ width: 150 }} textSize={24} onPress={() => navigation.navigate("Collaborate")}>Collaborate</Button>
+          {/* <Button style={{ width: 150 }} textSize={24} onPress={() => navigation.navigate("Collaborate")}>Collaborate</Button> */}
+          <Button style={{ width: 150 }} textSize={24} onPress={() => navigation.navigate("Friends")}>Friends</Button>
           <Button style={{ width: 150 }} textSize={24} onPress={() => navigation.navigate("Canvas")}>Create</Button>
         </View>
       </View>

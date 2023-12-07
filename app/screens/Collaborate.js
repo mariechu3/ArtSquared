@@ -5,11 +5,26 @@ import { ScrollView, View, Image, TouchableOpacity, Modal } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import Button from '../components/Button'
 
-export default Collaborate = ({ showModal, route, navigation, drawings }) => {
+export default Collaborate = ({ route, navigation, drawings }) => {
   const [image, setImage] = useState({ name: drawings[0].name, uri: drawings[0].uri });
   const selectedDrawing = route?.params?.selectedDrawing ? route.params.selectedDrawing : null;
-  const modalShow = route?.params?.showModal === false ? route.params.showModal : null;
+  const showModal = route?.params?.showModal === false ? route.params.showModal : null;
+  const [modalVisible, setModalVisible] = useState(true);
+  const [clear, setClear] = useState(false);
 
+  const { fromGallery } = route.params
+
+  useEffect(() => {
+    if (fromGallery) {
+      console.log("fromGallery")
+      setModalVisible(false)
+    }
+    else {
+      console.log("not from gallery")
+
+      setModalVisible(true)
+    }
+  }, [fromGallery])
 
   useEffect(() => {
     if (selectedDrawing) {
@@ -20,14 +35,29 @@ export default Collaborate = ({ showModal, route, navigation, drawings }) => {
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      if (modalShow !== false)
-        setModalVisible(showModal)
+      // if (showModal !== false) {
+      //   setModalVisible(true)
+      //   console.log("collab: this runs", showModal, selectedDrawing)
+      // }
+      // else {
+      //   setModalVisible(false)
+      // }
+      setModalVisible(true)
+      setClear(false)
     });
     return unsubscribe;
   }, [navigation])
 
+  useEffect(() => {
+    if (showModal !== false) {
+      setModalVisible(true)
+      console.log("collab: this runs", showModal, selectedDrawing)
+    }
+    else {
+      setModalVisible(false)
+    }
+  }, [showModal])
 
-  const [modalVisible, setModalVisible] = useState(showModal);
 
   const [selectedFriends, setSelectedFriends] = useState(new Set())
   const addFriend = (name) => {
@@ -47,7 +77,7 @@ export default Collaborate = ({ showModal, route, navigation, drawings }) => {
       <Modal
         animationType="none"
         transparent={false}
-        visible={modalVisible}
+        visible={false}
       >
         <Content style={{ display: 'flex', flexDirection: 'column', flex: 1, alignItems: "center", paddingTop: 20, gap: 20 }}>
           <Text bold style={{ fontSize: 30 }}>Select an image</Text>
@@ -75,10 +105,10 @@ export default Collaborate = ({ showModal, route, navigation, drawings }) => {
       <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%' }}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 20 }}>
           <View style={{ display: 'flex', flexDirection: 'row', columnGap: '8' }}>
-            <Friend name="Leyth" addFriend={addFriend} removeFriend={removeFriend} picture={images["Leyth"]} />
-            <Friend name="Marie" addFriend={addFriend} removeFriend={removeFriend} picture={images["Marie"]} />
-            <Friend name="David" addFriend={addFriend} removeFriend={removeFriend} picture={images["David"]} />
-            <Friend name="Becky" addFriend={addFriend} removeFriend={removeFriend} picture={images["Becky"]} />
+            <Friend name="Leyth" addFriend={addFriend} removeFriend={removeFriend} picture={images["Leyth"]} parentClear={clear} />
+            <Friend name="Marie" addFriend={addFriend} removeFriend={removeFriend} picture={images["Marie"]} parentClear={clear} />
+            <Friend name="David" addFriend={addFriend} removeFriend={removeFriend} picture={images["David"]} parentClear={clear} />
+            <Friend name="Becky" addFriend={addFriend} removeFriend={removeFriend} picture={images["Becky"]} parentClear={clear} />
           </View>
         </ScrollView>
         <View style={{ flexGrow: 1, display: "flex", alignItems: 'center' }}>
@@ -86,7 +116,7 @@ export default Collaborate = ({ showModal, route, navigation, drawings }) => {
           <Text>{image.name}</Text>
         </View>
         <View style={{ padding: 50, alignItems: 'center' }}>
-          <Button onPress={() => navigation.navigate("Canvas", { selectedDrawing: image })} textSize={24}>Add collaborators</Button>
+          <Button onPress={() => { setClear(true); setSelectedFriends(() => new Set()); navigation.navigate("Canvas", { selectedFriends: selectedFriends, selectedDrawing: image }); }} textSize={24}>Add collaborators</Button>
           <Text style={{ fontSize: 18, opacity: selectedFriends.size > 0 ? 1 : 0 }}>Selected {selectedFriends.size} friend{selectedFriends.size > 1 ? "s" : ""}</Text>
         </View>
       </View >

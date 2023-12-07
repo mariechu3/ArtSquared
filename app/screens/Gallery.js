@@ -62,7 +62,7 @@ export default Gallery = ({ removeDrawing, drawings, navigation, screen }) => {
               <TouchableOpacity
                 style={styles.action}
                 onPress={() => {
-                  navigation.navigate('Share', { showModal: false, selectedDrawing: selectedDrawing });
+                  navigation.navigate('Share', { fromGallery: true, selectedDrawing: selectedDrawing });
                   setModalVisible(!modalVisible)
                 }}>
                 <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
@@ -78,7 +78,10 @@ export default Gallery = ({ removeDrawing, drawings, navigation, screen }) => {
               <View style={styles.divider}></View>
               <TouchableOpacity
                 style={styles.action}
-                onPress={() => { navigation.navigate('Collaborate', { showModal: false, selectedDrawing: selectedDrawing }); setModalVisible(!modalVisible) }}>
+                onPress={() => {
+                  navigation.navigate('Collaborate', { fromGallery: false, selectedDrawing: selectedDrawing });
+                  setModalVisible(!modalVisible)
+                }}>
                 <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
                   <Icon
                     size={24}

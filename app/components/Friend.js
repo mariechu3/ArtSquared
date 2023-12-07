@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements'
 import Text from './Text'
 
 
-export default Friend = ({ name, picture, addFriend, removeFriend }) => {
+export default Friend = ({ name, picture, addFriend, removeFriend, parentClear }) => {
     const [selected, setSelected] = useState(null)
 
     useEffect(() => {
@@ -15,6 +15,11 @@ export default Friend = ({ name, picture, addFriend, removeFriend }) => {
             removeFriend(name)
         }
     }, [selected])
+
+    useEffect(() => {
+        if(parentClear)
+        setSelected(false)
+    }, [parentClear])
 
     return (
         <TouchableOpacity style={{ display: 'flex', alignItems: 'center', width: 100, position: 'relative' }} onPress={() => setSelected(!selected)}>
