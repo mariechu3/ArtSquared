@@ -55,6 +55,12 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
   const selectedDrawing = route?.params?.selectedDrawing ? route.params.selectedDrawing : null;
   const selectedFriends = route?.params?.selectedFriends ? route.params.selectedFriends : null;
 
+  useEffect(() => {
+    if (selectedFriends != null && selectedFriends.size > 0) {
+      runCollabActions()
+    }
+  }, [selectedFriends])
+
   /*********** Canvas Drawing/Tools States *******/
   var emptyCanvas = new Array
   for (i = 0; i < NUM_ROWS * NUM_COLS; i++) {
@@ -380,7 +386,7 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
               <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{flexDirection: "row-reverse"}} >
                 <View style={{ display: "flex", justifyContent: 'flex-end', flexDirection: "row-reverse", gap: 5 }}>
                   {[...selectedFriends].map(friend =>
-                    <TouchableOpacity onPress={() => navigation.navigate('Chat', { friend: friend })} onLongPress={runCollabActions}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Chat', { friend: friend })}>
                       <Image style={{ width: 40, height: 40 }} source={images[`${friend}Active`]} />
                     </TouchableOpacity>
                   )}
