@@ -98,8 +98,6 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
       addDrawing({
         uri: uri, name: name ? name : 'Untitiled', pixels: canvasData
       })
-
-
     }).catch(console.error);
   };
 
