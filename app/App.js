@@ -37,7 +37,7 @@ export default function App() {
       // { uri: DinosaurUri, name: 'Dinosawur9', pixels: null },
       // { uri: DinosaurUri, name: 'Dinosawur10', pixels: null },
       { uri: frogUri, name: 'frog', pixels: null },
-      { uri: toadUri, name : 'toad', pixels: null },
+      { uri: toadUri, name : 'toad', pixels: ["#ffffff", "#ffffff", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ffffff", "#ffffff", "#ffffff", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ffffff", "#ED3624", "#ED3624", "#ED3624", "#ffffff", "#ffffff", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ffffff", "#ffffff", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ffffff", "#f5bb95", "#f5bb95", "#f5bb95", "#f5bb95", "#f5bb95", "#f5bb95", "#ffffff", "#ffffff", "#f5bb95", "#000000", "#f5bb95", "#f5bb95", "#000000", "#f5bb95", "#ffffff", "#ffffff", "#f5bb95", "#f5bb95", "#f5bb95", "#f5bb95", "#f5bb95", "#f5bb95", "#ffffff"] },
       { uri: whaleUri, name: 'whale', pixels: null },
       { uri: flowerUri, name: 'flower', pixels: null },
       { uri: sunUri, name: 'sun', pixels: null },
