@@ -40,6 +40,17 @@ class Action {
 var Actions = new Array;
 var Redos = new Array;
 
+var collabActions = [
+  new Action("#000000", "#000000", 2, 2),
+  new Action("#000000", "#000000", 2, 5),
+  new Action("#000000", "#000000", 5, 1),
+  new Action("#000000", "#000000", 6, 2),
+  new Action("#000000", "#000000", 6, 3),
+  new Action("#000000", "#000000", 6, 4),
+  new Action("#000000", "#000000", 6, 5),
+  new Action("#000000", "#000000", 5, 6)
+]
+
 export default Canvas = ({ addDrawing, navigation, route }) => {
   const selectedDrawing = route?.params?.selectedDrawing ? route.params.selectedDrawing : null;
   const selectedFriends = route?.params?.selectedFriends ? route.params.selectedFriends : null;
@@ -127,6 +138,33 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
     cd = [...canvasData]
     cd[rowCol2Index(action.row, action.col)] = action.colorOld
     setCanvasData(cd)
+  }
+
+  runCollabActions = () => {
+    setTimeout(() => {
+      applyAction(collabActions[0])
+    }, 500);
+    setTimeout(() => {
+      applyAction(collabActions[1])
+    }, 1000);
+    setTimeout(() => {
+      applyAction(collabActions[2])
+    }, 1500);
+    setTimeout(() => {
+      applyAction(collabActions[3])
+    }, 2000);
+    setTimeout(() => {
+      applyAction(collabActions[4])
+    }, 2500);
+    setTimeout(() => {
+      applyAction(collabActions[5])
+    }, 3000);
+    setTimeout(() => {
+      applyAction(collabActions[6])
+    }, 3500);
+    setTimeout(() => {
+      applyAction(collabActions[7])
+    }, 4000);
   }
 
   undo = () => {
@@ -338,7 +376,7 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
               <ScrollView horizontal showsHorizontalScrollIndicator={false} >
                 <View style={{ display: "flex", flexDirection: "row", gap: 5 }}>
                   {[...selectedFriends].map(friend =>
-                    <TouchableOpacity onPress={() => navigation.navigate('Chat', { friend: friend })}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Chat', { friend: friend })} onLongPress={runCollabActions}>
                       <Image style={{ width: 40, height: 40 }} source={images[`${friend}Active`]} />
                     </TouchableOpacity>
                   )}
