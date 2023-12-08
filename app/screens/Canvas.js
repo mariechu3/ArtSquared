@@ -51,7 +51,14 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
   for (i = 0; i < NUM_ROWS * NUM_COLS; i++) {
     emptyCanvas[i] = eraseColor
   }
-  const [canvasData, setCanvasData] = useState( selectedDrawing != null ? selectedDrawing.pixels : emptyCanvas)
+
+  useEffect(() => {
+    if (selectedDrawing) {
+      setCanvasData(selectedDrawing.pixels)
+    }
+  }, [selectedDrawing])
+
+  const [canvasData, setCanvasData] = useState(selectedDrawing != null ? selectedDrawing.pixels : emptyCanvas)
   const [selectedTool, setSelectedTool] = useState(0);
   const [selectedColor, setSelectedColor] = useState('#000000');
   const [actionsLen, setActionsLen] = useState(Actions.length)
