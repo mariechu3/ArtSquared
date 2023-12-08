@@ -335,8 +335,8 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
           }
           {selectedFriends &&
             <View style={{ width: 150 }}>
-              <ScrollView horizontal showsHorizontalScrollIndicator={false} >
-                <View style={{ display: "flex", alignSelf: 'flex-end', flexDirection: "row", gap: 5 }}>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{flexDirection: "row-reverse"}} >
+                <View style={{ display: "flex", justifyContent: 'flex-end', flexDirection: "row-reverse", gap: 5 }}>
                   {[...selectedFriends].map(friend =>
                     <TouchableOpacity onPress={() => navigation.navigate('Chat', { friend: friend })}>
                       <Image style={{ width: 40, height: 40 }} source={images[`${friend}Active`]} />
@@ -407,7 +407,7 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
                 <TouchableOpacity
                   style={{ backgroundColor: "#d9d9d9", borderRadius: 5, padding: 10 }}
                   onPress={() => {
-                    navigation.navigate('Share', { showModal: false, selectedDrawing: { uri: uri, name: name ? name : 'Untitiled', pixels: null } });
+                    navigation.navigate('Share', { showModal: false, selectedDrawing: { uri: uri, name: name ? name : 'Untitiled', pixels: canvasData } });
                     setPreviewModalVisible(false)
                   }}>
                   <Icon
@@ -419,7 +419,7 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={{ backgroundColor: "#d9d9d9", borderRadius: 5, padding: 10 }}
-                  onPress={() => { navigation.navigate('Collaborate', { showModal: false, selectedDrawing: { uri: uri, name: name ? name : 'Untitiled', pixels: null } }); setPreviewModalVisible(false) }}>
+                  onPress={() => { navigation.navigate('Collaborate', { showModal: false, selectedDrawing: { uri: uri, name: name ? name : 'Untitiled', pixels: canvasData } }); setPreviewModalVisible(false) }}>
                   <Icon
                     size={30}
                     type="ionicon"

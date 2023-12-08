@@ -7,14 +7,13 @@ import Gallery from '../screens/Gallery'
 import Friends from '../screens/Friends'
 import Messages from '../screens/Messages'
 import Chat from '../screens/Chat'
-import { StyleSheet, View, Image } from 'react-native'
+import { View, Image } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import {
     createDrawerNavigator,
     DrawerContentScrollView,
     DrawerItemList,
-    DrawerItems
 } from '@react-navigation/drawer';
 import images from '../Variables/Images'
 import { useFonts, Mina_400Regular, Mina_700Bold } from '@expo-google-fonts/mina';
@@ -30,7 +29,7 @@ function CustomDrawerContent(props) {
     );
 }
 
-export default Navigation = ({ drawings, addDrawing, removeDrawing }) => {
+export default Navigation = ({ drawings, addDrawing, removeDrawing, editDrawing }) => {
     let [fontsLoaded, fontError] = useFonts({
         Mina_400Regular,
         Mina_700Bold,

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Text from '../components/Text'
-import { Image, TouchableOpacity, Modal, StyleSheet, View, Alert } from 'react-native'
-import images from '../Variables/Images'
+import { Image, TouchableOpacity, Modal, StyleSheet, View } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { ScrollView } from 'react-native-gesture-handler'
 import Dialog from 'react-native-dialog'
@@ -73,7 +72,7 @@ export default Gallery = ({ removeDrawing, drawings, navigation, screen }) => {
                 <TouchableOpacity
                   style={styles.action}
                   onPress={() => {
-                    navigation.navigate('Canvas', { showModal: false, selectedDrawing: selectedDrawing });
+                    navigation.navigate('Canvas', { selectedDrawing: selectedDrawing });
                     setModalVisible(!modalVisible)
                   }}>
                   <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
@@ -90,7 +89,7 @@ export default Gallery = ({ removeDrawing, drawings, navigation, screen }) => {
                 <TouchableOpacity
                   style={styles.action}
                   onPress={() => {
-                    navigation.navigate('Share', { fromGallery: true, selectedDrawing: selectedDrawing });
+                    navigation.navigate('Share', { selectedDrawing: selectedDrawing });
                     setModalVisible(!modalVisible)
                   }}>
                   <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
@@ -107,7 +106,7 @@ export default Gallery = ({ removeDrawing, drawings, navigation, screen }) => {
                 <TouchableOpacity
                   style={styles.action}
                   onPress={() => {
-                    navigation.navigate('Collaborate', { fromGallery: false, selectedDrawing: selectedDrawing });
+                    navigation.navigate('Collaborate', { selectedDrawing: selectedDrawing });
                     setModalVisible(!modalVisible)
                   }}>
                   <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
