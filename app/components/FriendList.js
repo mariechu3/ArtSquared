@@ -14,11 +14,9 @@ export default FriendList = ({ buttonText, imageTitle }) => {
     const [selectedFriends, setSelectedFriends] = useState(new Set())
     const addFriend = (name) => {
         setSelectedFriends(friends => new Set([...friends, name]))
-        console.log("addFriend:", selectedFriends)
     }
     const removeFriend = (name) => {
         setSelectedFriends(friends => new Set([...friends].filter(x => x !== name)))
-        console.log("removeFriend:", selectedFriends)
     }
 
     useEffect(async () => {
@@ -38,7 +36,6 @@ export default FriendList = ({ buttonText, imageTitle }) => {
                 },
             }
         )
-        console.log(result)
     }
 
     return (

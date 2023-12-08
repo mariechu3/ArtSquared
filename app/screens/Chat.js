@@ -37,7 +37,7 @@ const renderBubble = (props) => {
 };
 
 export default Chat = ({ route }) => {
-  const friend = route?.params?.friend ? route.params.friend : null;
+  const name = route?.params?.name ? route.params.name : null;
 
   const [messages, setMessages] = useState([])
 
@@ -49,7 +49,7 @@ export default Chat = ({ route }) => {
         createdAt: new Date(),
         user: {
           _id: 2,
-          name: 'Marie Chu',
+          name: `${name}`,
           avatar: '',
         },
       },
@@ -59,7 +59,7 @@ export default Chat = ({ route }) => {
         createdAt: new Date(),
         user: {
           _id: 2,
-          name: 'Marie Chu',
+          name: `${name}`,
           avatar: '',
         },
       },
@@ -79,7 +79,7 @@ export default Chat = ({ route }) => {
         createdAt: new Date('2023-11-11T08:07:41.597Z'),
         user: {
           _id: 2,
-          name: 'Marie Chu',
+          name: `${name}`,
           avatar: '',
         },
       },
@@ -99,7 +99,7 @@ export default Chat = ({ route }) => {
         createdAt: new Date('2023-11-11T07:50:41.597Z'),
         user: {
           _id: 2,
-          name: 'Marie Chu',
+          name: `${name}`,
           avatar: '',
         },
       },
@@ -119,7 +119,7 @@ export default Chat = ({ route }) => {
         createdAt: new Date('2023-11-11T07:47:41.597Z'),
         user: {
           _id: 2,
-          name: 'Marie Chu',
+          name: `${name}`,
           avatar: '',
         },
       },
@@ -134,7 +134,7 @@ export default Chat = ({ route }) => {
         },
       },
     ])
-  }, [])
+  }, [name])
 
   const onSend = useCallback((messages = []) => {
 
@@ -147,23 +147,11 @@ export default Chat = ({ route }) => {
         createdAt: new Date(),
         user: {
           _id: 2,
-          name: 'Marie chu',
+          name: `${name}`,
         },
       }, ...messages]
-        //   .push({
-        //   _id: 2,
-        //   text: 'Got it',
-        //   createdAt: new Date(),
-        //   user: {
-        //     _id: 2,
-        //     name: 'Marie chu',
-        //     avatar: '',
-        //   },
-        // },)
-        // ),
       ))
-  }, [])
-  console.log(new Date())
+  }, [name])
 
   return (
     // <KeyboardAvoidingView

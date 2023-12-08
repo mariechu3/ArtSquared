@@ -14,6 +14,14 @@ export default Lessons = () => {
           <YoutubePlayer
             height={230}
             play={false}
+            videoId={'nw0NXODWVio'}
+          />
+          <Text textAlign='center'>  {"Art^2 walkthrough and Curves"}</Text>
+        </View>
+        <View>
+          <YoutubePlayer
+            height={230}
+            play={false}
             videoId={'ye21r27kN9I'}
           />
           <Text textAlign='center'>  {"Lines and Curves"}</Text>

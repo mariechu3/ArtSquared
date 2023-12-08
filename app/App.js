@@ -36,29 +36,29 @@ export default function App() {
       // { uri: DinosaurUri, name: 'Dinosawur8', pixels: null },
       // { uri: DinosaurUri, name: 'Dinosawur9', pixels: null },
       // { uri: DinosaurUri, name: 'Dinosawur10', pixels: null },
-      { uri: frogUri, name: 'frog', pixels: null },
-      { uri: toadUri, name : 'toad', pixels: ["#ffffff", "#ffffff", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ffffff", "#ffffff", "#ffffff", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ffffff", "#ED3624", "#ED3624", "#ED3624", "#ffffff", "#ffffff", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ffffff", "#ffffff", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ffffff", "#f5bb95", "#f5bb95", "#f5bb95", "#f5bb95", "#f5bb95", "#f5bb95", "#ffffff", "#ffffff", "#f5bb95", "#000000", "#f5bb95", "#f5bb95", "#000000", "#f5bb95", "#ffffff", "#ffffff", "#f5bb95", "#f5bb95", "#f5bb95", "#f5bb95", "#f5bb95", "#f5bb95", "#ffffff"] },
-      { uri: whaleUri, name: 'whale', pixels: null },
-      { uri: flowerUri, name: 'flower', pixels: null },
-      { uri: sunUri, name: 'sun', pixels: null },
+      { uri: frogUri, name: 'frog', pixels: ["#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#000000", "#60ba46", "#ffffff", "#ffffff", "#60ba46", "#000000", "#ffffff", "#ffffff", "#60ba46", "#60ba46", "#ffffff", "#ffffff", "#60ba46", "#60ba46", "#ffffff", "#60ba46", "#60ba46", "#60ba46", "#60ba46", "#60ba46", "#60ba46", "#60ba46", "#60ba46", "#60ba46", "#60ba46", "#60ba46", "#60ba46", "#60ba46", "#60ba46", "#60ba46", "#60ba46", "#ffffff", "#60ba46", "#f8d1d1", "#f8d1d1", "#f8d1d1", "#f8d1d1", "#60ba46", "#ffffff", "#ffffff", "#ffffff", "#60ba46", "#60ba46", "#60ba46", "#60ba46", "#ffffff", "#ffffff"] },
+      { uri: toadUri, name: 'toad', pixels: ["#ffffff", "#ffffff", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ffffff", "#ffffff", "#ffffff", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ffffff", "#ED3624", "#ED3624", "#ED3624", "#ffffff", "#ffffff", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ffffff", "#ffffff", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ED3624", "#ffffff", "#f5bb95", "#f5bb95", "#f5bb95", "#f5bb95", "#f5bb95", "#f5bb95", "#ffffff", "#ffffff", "#f5bb95", "#000000", "#f5bb95", "#f5bb95", "#000000", "#f5bb95", "#ffffff", "#ffffff", "#f5bb95", "#f5bb95", "#f5bb95", "#f5bb95", "#f5bb95", "#f5bb95", "#ffffff"] },
+      { uri: whaleUri, name: 'whale', pixels: ["#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#006fff", "#006fff", "#ffffff", "#ffffff", "#006fff", "#006fff", "#ffffff", "#006fff", "#006fff", "#006fff", "#006fff", "#ffffff", "#006fff", "#ffffff", "#006fff", "#006fff", "#000000", "#006fff", "#006fff", "#006fff", "#006fff", "#ffffff", "#006fff", "#006fff", "#006fff", "#006fff", "#006fff", "#006fff", "#006fff", "#ffffff", "#ffffff", "#006fff", "#006fff", "#006fff", "#006fff", "#006fff", "#ffffff", "#ffffff"] },
+      { uri: flowerUri, name: 'flower', pixels: ["#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#622d90", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#622d90", "#ffff00", "#622d90", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#622d90", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#60ba46", "#60ba46", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#60ba46", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#60ba46", "#60ba46", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#60ba46", "#ffffff", "#ffffff", "#ffffff", "#ffffff"] },
+      { uri: sunUri, name: 'sun', pixels: ["#ffffff", "#ffffff", "#FA9D00", "#ffffff", "#ffffff", "#FA9D00", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#FA9D00", "#FA9D00", "#FA9D00", "#FA9D00", "#ffffff", "#ffffff", "#FA9D00", "#FA9D00", "#FA9D00", "#fad900", "#fad900", "#FA9D00", "#FA9D00", "#FA9D00", "#ffffff", "#FA9D00", "#fad900", "#fad900", "#fad900", "#fad900", "#FA9D00", "#ffffff", "#ffffff", "#FA9D00", "#fad900", "#fad900", "#fad900", "#fad900", "#FA9D00", "#ffffff", "#FA9D00", "#FA9D00", "#FA9D00", "#fad900", "#fad900", "#FA9D00", "#FA9D00", "#FA9D00", "#ffffff", "#ffffff", "#FA9D00", "#FA9D00", "#FA9D00", "#FA9D00", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#FA9D00", "#ffffff", "#ffffff", "#FA9D00", "#ffffff", "#ffffff"] },
 
     ])
   const addDrawing = (drawing) => {
     setDrawings(drawings => [...drawings, { ...drawing }])
-    console.log("addedDrawing:", drawing.name)
   }
   const removeDrawing = (drawing) => {
     setDrawings(drawings => drawings.filter(x => x.name != drawing.name))
-    console.log("removeDrawing:", drawing.name)
   }
 
   const editDrawing = (drawing) => {
-    setDrawings(drawings => drawings.filter(x => x.name != drawing.name))
-    console.log("removeDrawing:", drawing.name)
+    let newDrawings = [...drawings];
+    let index = drawings.findIndex(x => x.uri == drawing.uri)
+    newDrawings[index] = drawing
+    setDrawings(newDrawings)
   }
   return (
     <NavigationContainer>
-      <Navigation drawings={drawings} addDrawing={addDrawing} removeDrawing={removeDrawing} />
+      <Navigation drawings={drawings} addDrawing={addDrawing} removeDrawing={removeDrawing} editDrawing={editDrawing} />
     </NavigationContainer>
 
   )

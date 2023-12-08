@@ -54,15 +54,20 @@ var collabActions = [
 export default Canvas = ({ addDrawing, navigation, route }) => {
   const selectedDrawing = route?.params?.selectedDrawing ? route.params.selectedDrawing : null;
   const selectedFriends = route?.params?.selectedFriends ? route.params.selectedFriends : null;
-  console.log("selectedFriends Canvas:", selectedFriends)
-  console.log("selectedDrawing Canvas:", selectedDrawing)
 
   /*********** Canvas Drawing/Tools States *******/
   var emptyCanvas = new Array
   for (i = 0; i < NUM_ROWS * NUM_COLS; i++) {
     emptyCanvas[i] = eraseColor
   }
-  const [canvasData, setCanvasData] = useState( selectedDrawing != null ? selectedDrawing.pixels : emptyCanvas)
+
+  useEffect(() => {
+    if (selectedDrawing) {
+      setCanvasData(selectedDrawing.pixels)
+    }
+  }, [selectedDrawing])
+
+  const [canvasData, setCanvasData] = useState(selectedDrawing != null ? selectedDrawing.pixels : emptyCanvas)
   const [selectedTool, setSelectedTool] = useState(0);
   const [selectedColor, setSelectedColor] = useState('#000000');
   const [actionsLen, setActionsLen] = useState(Actions.length)
@@ -72,7 +77,6 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
   /********** Stuff for screen capture ***********/
   const [name, setName] = useState('');
   const [editName, setEditName] = useState(false);
-  const [nameDialogVisible, setNameDialogVisible] = useState(false);
   const [previewModalVisible, setPreviewModalVisible] = useState(false);
   const [pickerModalVisible, setPickerModalVisible] = useState(false);
 
@@ -373,8 +377,8 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
           }
           {selectedFriends &&
             <View style={{ width: 150 }}>
-              <ScrollView horizontal showsHorizontalScrollIndicator={false} >
-                <View style={{ display: "flex", flexDirection: "row", gap: 5 }}>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{flexDirection: "row-reverse"}} >
+                <View style={{ display: "flex", justifyContent: 'flex-end', flexDirection: "row-reverse", gap: 5 }}>
                   {[...selectedFriends].map(friend =>
                     <TouchableOpacity onPress={() => navigation.navigate('Chat', { friend: friend })} onLongPress={runCollabActions}>
                       <Image style={{ width: 40, height: 40 }} source={images[`${friend}Active`]} />
@@ -515,23 +519,6 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
   return (
     <View style={[styles.screen, { flex: 1, padding: 10 }]}>
       <DrawingCanvas />
-      <Dialog.Container visible={nameDialogVisible}>
-        <Dialog.Title>Name your artwork</Dialog.Title>
-        <Dialog.Description>
-          Please give your artwork a name .
-        </Dialog.Description>
-        <Dialog.Input
-          onSubmitEditing={(value) => {
-            setName(value.nativeEvent.text); setEditName(false);
-            addDrawing({ uri: uri, name: name, pixels: canvasData })
-
-          }}
-        >
-          Please give your artwork a name .
-        </Dialog.Input>
-        <Dialog.Button label="Cancel" />
-        <Dialog.Button label="Delete" />
-      </Dialog.Container>
       <Modal
         animationType="slide"
         transparent={true}

@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Content from '../components/Content'
 import { StyleSheet, View, Image } from 'react-native';
 import Button from '../components/Button';
-import Text from '../components/Text'
 import images from '../Variables/Images';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
   title: {
@@ -16,18 +16,23 @@ const styles = StyleSheet.create({
   }
 })
 
-
-
 export default Home = ({ drawings, navigation, screen }) => {
-  const [pictureUri, setPictureUri] = useState(drawings[Math.floor(Math.random() * drawings.length)].uri)
+  const [picture, setPicture] = useState(drawings[Math.floor(Math.random() * drawings.length)])
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      setPicture(drawings[Math.floor(Math.random() * drawings.length)])
+    });
+    return unsubscribe;
+  }, [navigation])
 
   return (
     <Content style={{ display: 'flex', flexDirection: 'column', gap: 40, alignItems: 'center', flex: 1 }}>
-      {/* <Text bold style={[styles.title, { fontSize: 56, fontFamily: 'Mina_700Bold' }]}>Art^2</Text> */}
       <Image style={{ width: 170, height: 80, marginTop: 40 }} source={images['Logo']}></Image>
 
       <View style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Image style={styles.image} source={{ uri: pictureUri }} />
+        <TouchableOpacity onPress={() => { navigation.navigate("Canvas", { selectedDrawing: picture }) }}>
+          <Image style={styles.image} source={{ uri: picture.uri }} />
+        </TouchableOpacity>
       </View>
       <View style={{ display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'center' }}>
         <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
