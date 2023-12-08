@@ -43,8 +43,6 @@ var Redos = new Array;
 export default Canvas = ({ addDrawing, navigation, route }) => {
   const selectedDrawing = route?.params?.selectedDrawing ? route.params.selectedDrawing : null;
   const selectedFriends = route?.params?.selectedFriends ? route.params.selectedFriends : null;
-  console.log("selectedFriends Canvas:", selectedFriends)
-  console.log("selectedDrawing Canvas:", selectedDrawing)
 
   /*********** Canvas Drawing/Tools States *******/
   var emptyCanvas = new Array
@@ -78,7 +76,6 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
       setUri(uri);
       setPreviewModalVisible(true)
       const data = MediaLibrary.saveToLibraryAsync(uri);
-      console.log("canvasData", canvasData)
       addDrawing({
         uri: uri, name: name ? name : 'Untitiled', pixels: canvasData
       })

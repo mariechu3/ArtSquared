@@ -16,12 +16,9 @@ export default Collaborate = ({ route, navigation, drawings }) => {
 
   useEffect(() => {
     if (fromGallery) {
-      console.log("fromGallery")
       setModalVisible(false)
     }
     else {
-      console.log("not from gallery")
-
       setModalVisible(true)
     }
   }, [fromGallery])
@@ -51,7 +48,6 @@ export default Collaborate = ({ route, navigation, drawings }) => {
   useEffect(() => {
     if (showModal !== false) {
       setModalVisible(true)
-      console.log("collab: this runs", showModal, selectedDrawing)
     }
     else {
       setModalVisible(false)
@@ -62,11 +58,9 @@ export default Collaborate = ({ route, navigation, drawings }) => {
   const [selectedFriends, setSelectedFriends] = useState(new Set())
   const addFriend = (name) => {
     setSelectedFriends(friends => new Set([...friends, name]))
-    console.log("addFriend:", selectedFriends)
   }
   const removeFriend = (name) => {
     setSelectedFriends(friends => new Set([...friends].filter(x => x !== name)))
-    console.log("removeFriend:", selectedFriends)
   }
 
 

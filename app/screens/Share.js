@@ -42,11 +42,9 @@ export default Share = ({ navigation, route, buttonText, drawings }) => {
   // };
   useEffect(() => {
     if (fromGallery) {
-      console.log("fromGallery")
       setModalVisible(false)
     }
     else {
-      console.log("not from gallery")
       setModalVisible(true)
     }
   }, [fromGallery])
@@ -60,11 +58,9 @@ export default Share = ({ navigation, route, buttonText, drawings }) => {
   const [selectedFriends, setSelectedFriends] = useState(new Set())
   const addFriend = (name) => {
     setSelectedFriends(friends => new Set([...friends, name]))
-    console.log("addFriend:", selectedFriends)
   }
   const removeFriend = (name) => {
     setSelectedFriends(friends => new Set([...friends].filter(x => x !== name)))
-    console.log("removeFriend:", selectedFriends)
   }
 
   useEffect(() => {
@@ -122,7 +118,6 @@ export default Share = ({ navigation, route, buttonText, drawings }) => {
       // console.error
       await SMS.sendSMSAsync(numbers, `Check out my ${image.name} artwork!`)
     )
-    console.log(result)
   }
 
   return (

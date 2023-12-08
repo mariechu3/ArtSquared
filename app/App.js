@@ -45,16 +45,13 @@ export default function App() {
     ])
   const addDrawing = (drawing) => {
     setDrawings(drawings => [...drawings, { ...drawing }])
-    console.log("addedDrawing:", drawing.name)
   }
   const removeDrawing = (drawing) => {
     setDrawings(drawings => drawings.filter(x => x.name != drawing.name))
-    console.log("removeDrawing:", drawing.name)
   }
 
   const editDrawing = (drawing) => {
     setDrawings(drawings => drawings.filter(x => x.name != drawing.name))
-    console.log("removeDrawing:", drawing.name)
   }
   return (
     <NavigationContainer>
