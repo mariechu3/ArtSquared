@@ -9,6 +9,7 @@ export default Gallery = ({ removeDrawing, drawings, navigation, screen }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedDrawing, setSelectedDrawing] = useState(null);
   const [deleteDialogVisible, setDeleteDialogVisible] = useState(false)
+  const [renameDialogVisible, setRenameDialogVisible] = useState(false)
 
   return (
     <View style={{ height: "100%", width: "100%" }}>
@@ -30,7 +31,12 @@ export default Gallery = ({ removeDrawing, drawings, navigation, screen }) => {
           elevation: 5,
           zIndex: 5
         }}
-        onPress={() => { navigation.navigate("Canvas") }}
+        onPress={() => {
+          navigation.navigate("Canvas", {
+            selectedDrawing:
+              { uri: null, name: null, pixels: ["#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff"] },
+          })
+        }}
       >
         <Icon
           size={44}
@@ -48,6 +54,13 @@ export default Gallery = ({ removeDrawing, drawings, navigation, screen }) => {
               </TouchableOpacity>
             );
           })}
+          <Dialog.Container visible={renameDialogVisible}>
+            <Dialog.Title>Rename drawing</Dialog.Title>
+            <Dialog.Description>
+              Sorry, this feature is not available yet.
+            </Dialog.Description>
+            <Dialog.Button label="OK" onPress={() => setRenameDialogVisible(false)} />
+          </Dialog.Container>
 
           <Dialog.Container visible={deleteDialogVisible}>
             <Dialog.Title>Delete drawing</Dialog.Title>
@@ -134,7 +147,7 @@ export default Gallery = ({ removeDrawing, drawings, navigation, screen }) => {
                 <View style={styles.divider}></View>
                 <TouchableOpacity
                   style={styles.action}
-                  onPress={() => { setModalVisible(!modalVisible) }}>
+                  onPress={() => { setModalVisible(!modalVisible); setRenameDialogVisible(true) }}>
                   <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
                     <Icon
                       size={24}

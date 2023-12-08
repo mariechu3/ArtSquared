@@ -69,6 +69,7 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
 
   useEffect(() => {
     if (selectedDrawing) {
+      setName(selectedDrawing.name)
       setCanvasData(selectedDrawing.pixels)
     }
   }, [selectedDrawing])
@@ -81,7 +82,7 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
   const [gridShow, setGridShow] = useState(true)
 
   /********** Stuff for screen capture ***********/
-  const [name, setName] = useState('');
+  const [name, setName] = useState(null);
   const [editName, setEditName] = useState(false);
   const [previewModalVisible, setPreviewModalVisible] = useState(false);
   const [pickerModalVisible, setPickerModalVisible] = useState(false);
@@ -93,6 +94,7 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
       setUri(uri);
       setPreviewModalVisible(true)
       const data = MediaLibrary.saveToLibraryAsync(uri);
+      console.log(canvasData)
       addDrawing({
         uri: uri, name: name ? name : 'Untitiled', pixels: canvasData
       })
@@ -345,9 +347,9 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
     return (
       <View style={styles.drawingCanvas}>
         <View style={{ display: "flex", flexDirection: "row", width: "100%", marginBottom: 20, alignItems: 'center' }}>
-          {(!selectedDrawing && !name || editName) &&
+          {(!selectedDrawing?.name && !name || editName) &&
             <TextInput
-              style={[name === '' || editName ? {
+              style={[name === null || editName ? {
                 borderWidth: 1,
                 backgroundColor: 'white',
                 borderRadius: 5,
@@ -365,7 +367,7 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
               placeholderTextColor="gray"
             />
           }
-          {((selectedDrawing || name) && !editName) &&
+          {((selectedDrawing?.name || name) && !editName) &&
             <View style={{ display: "flex", flexDirection: "row", flex: 1 }}>
               <TouchableOpacity
                 onPress={() => { setEditName(true) }} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>

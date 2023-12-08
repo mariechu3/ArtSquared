@@ -42,7 +42,10 @@ export default Home = ({ drawings, navigation, screen }) => {
         <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
           {/* <Button style={{ width: 150 }} textSize={24} onPress={() => navigation.navigate("Collaborate")}>Collaborate</Button> */}
           <Button style={{ width: 150 }} textSize={24} onPress={() => navigation.navigate("Friends")}>Friends</Button>
-          <Button style={{ width: 150 }} textSize={24} onPress={() => navigation.navigate("Canvas")}>Create</Button>
+          <Button style={{ width: 150 }} textSize={24} onPress={() => navigation.navigate("Canvas", {selectedDrawing:
+                { uri: null, name: null, pixels: ["#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff"] },
+            })
+          }>Create</Button>
         </View>
       </View>
     </Content >
