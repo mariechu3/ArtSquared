@@ -51,7 +51,7 @@ export default Navigation = ({ drawings, addDrawing, removeDrawing }) => {
                 },
                 drawerPosition: "right",
                 headerLeft: () => (
-                    <View style={{ paddingLeft: 24 }}><Image style={{ width: 35, height: 35 }} source={images['LogoCircle']}></Image></View>
+                    <TouchableOpacity onPress={() => navigation.navigate("Home")} style={{ paddingLeft: 24 }}><Image style={{ width: 35, height: 35 }} source={images['LogoCircle']}></Image></TouchableOpacity>
                 ),
 
                 headerRight: (props) => (<View style={{ display: "flex", flexDirection: "row", alignItems: "baseline", gap: 10 }}>
@@ -143,8 +143,9 @@ export default Navigation = ({ drawings, addDrawing, removeDrawing }) => {
                         />
                     ),
                 }}
-                component={Messages}
-            />
+            >
+                {({ navigation }) => <Messages navigation={navigation} />}
+            </Drawer.Screen>
             <Drawer.Screen
                 name="Chat"
                 options={{

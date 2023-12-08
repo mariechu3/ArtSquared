@@ -5,10 +5,10 @@ import Text from './Text'
 import images from "../Variables/Images";
 
 
-export default Message = ({ name, message }) => {
-    
+export default Message = ({ navigation, name, message }) => {
+
     return (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Chat", { name: name })}>
             <View style={{ width: '100%', alignItems: "center" }}>
                 <View style={{ display: 'flex', flexDirection: "row", alignItems: "left", gap: 10, width: "100%" }}>
                     <Image style={{ width: 70, height: 70, borderRadius: 50 }} source={images[name]} />

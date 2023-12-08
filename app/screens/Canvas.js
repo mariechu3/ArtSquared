@@ -68,7 +68,6 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
   /********** Stuff for screen capture ***********/
   const [name, setName] = useState('');
   const [editName, setEditName] = useState(false);
-  const [nameDialogVisible, setNameDialogVisible] = useState(false);
   const [previewModalVisible, setPreviewModalVisible] = useState(false);
   const [pickerModalVisible, setPickerModalVisible] = useState(false);
 
@@ -79,6 +78,7 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
       setUri(uri);
       setPreviewModalVisible(true)
       const data = MediaLibrary.saveToLibraryAsync(uri);
+      console.log("canvasData", canvasData)
       addDrawing({
         uri: uri, name: name ? name : 'Untitiled', pixels: canvasData
       })
@@ -339,7 +339,7 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
           {selectedFriends &&
             <View style={{ width: 150 }}>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} >
-                <View style={{ display: "flex", flexDirection: "row", gap: 5 }}>
+                <View style={{ display: "flex", alignSelf: 'flex-end', flexDirection: "row", gap: 5 }}>
                   {[...selectedFriends].map(friend =>
                     <TouchableOpacity onPress={() => navigation.navigate('Chat', { friend: friend })}>
                       <Image style={{ width: 40, height: 40 }} source={images[`${friend}Active`]} />
@@ -480,23 +480,6 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
   return (
     <View style={[styles.screen, { flex: 1, padding: 10 }]}>
       <DrawingCanvas />
-      <Dialog.Container visible={nameDialogVisible}>
-        <Dialog.Title>Name your artwork</Dialog.Title>
-        <Dialog.Description>
-          Please give your artwork a name .
-        </Dialog.Description>
-        <Dialog.Input
-          onSubmitEditing={(value) => {
-            setName(value.nativeEvent.text); setEditName(false);
-            addDrawing({ uri: uri, name: name, pixels: canvasData })
-
-          }}
-        >
-          Please give your artwork a name .
-        </Dialog.Input>
-        <Dialog.Button label="Cancel" />
-        <Dialog.Button label="Delete" />
-      </Dialog.Container>
       <Modal
         animationType="slide"
         transparent={true}

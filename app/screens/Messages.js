@@ -13,21 +13,21 @@ const styles = StyleSheet.create({
 });
 
 
-export default Messages = ({ }) => {
+export default Messages = ({ navigation }) => {
 
   return (
     <ScrollView vertical showsVerticalScrollIndicator={false}>
       <Content style={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row', rowGap: 30 }}>
-        <Message name="Becky" drawing="Dinosaur" message="You: can you add ..." />
+        <Message navigation={navigation} name="Becky" drawing="Dinosaur" message="You: can you add ..." />
         <View style={styles.divider}></View>
 
-        <Message name="Marie" drawing="Dinosaur" message="I like burritos" />
+        <Message navigation={navigation} name="Marie" drawing="Dinosaur" message="I like burritos" />
         <View style={styles.divider}></View>
 
-        <Message name="Leyth" drawing="Dinosaur" message="Just finished drawing ..." />
+        <Message navigation={navigation} name="Leyth" drawing="Dinosaur" message="Just finished drawing ..." />
         <View style={styles.divider}></View>
 
-        <Message name="David" drawing="Dinosaur" message="You: how was your ..." />
+        <Message navigation={navigation} name="David" drawing="Dinosaur" message="You: how was your ..." />
       </Content >
     </ScrollView>
   )

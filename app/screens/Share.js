@@ -45,7 +45,7 @@ export default Share = ({ navigation, route, buttonText, drawings }) => {
       console.log("fromGallery")
       setModalVisible(false)
     }
-    else{
+    else {
       console.log("not from gallery")
       setModalVisible(true)
     }
@@ -119,7 +119,8 @@ export default Share = ({ navigation, route, buttonText, drawings }) => {
         },
       }
     ).catch(
-      console.error
+      // console.error
+      await SMS.sendSMSAsync(numbers, `Check out my ${image.name} artwork!`)
     )
     console.log(result)
   }
