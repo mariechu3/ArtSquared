@@ -19,15 +19,15 @@
 	<!-- Header -->
 	<span id="header" style="display:flex; flex-direction: column; align-items: center; gap:14px">
 		<div style="display:flex; flex-direction: column; align-items: center; margin-bottom:14px">
-			<img id="logo" style="padding: 0px 0px; width: 5%" src="images/Logo.png" />
+			<img id="logo" style="padding: 0px 0px; width: 15%" src="images/Logo.png" />
 			<span>"Learn art and build your community <br />
 				- One pixel at a time."</span>
 		</div>
 		<button class="action-button"
-			style="padding: 5px 10px; background-color: white; color: black; border: 2px solid gray; border-radius: 10px; font-size:16px; cursor:pointer"
-			onClick="document.getElementById('blurb').scrollIntoView();">Learn more</button>
+			style="padding: 5px 10px; background-color: white; color: black; border: 2px solid gray; border-radius: 10px; font-size:14px; cursor:pointer"
+			onClick="document.getElementById('process').scrollIntoView();">Learn more</button>
 		<button class="action-button"
-			style="padding: 5px 10px; color: black; background-color: white; border: 2px solid gray; border-radius: 10px; font-size:16px; cursor:pointer"
+			style="padding: 5px 10px; color: black; background-color: white; border: 2px solid gray; border-radius: 10px; font-size:14px; cursor:pointer"
 			onClick="document.getElementById('team').scrollIntoView();">Meet
 			the team</button>
 	</span>
@@ -41,15 +41,40 @@
 				and collaborate with others to build a community. The app is geared towards individuals who
 				want to learn art and/or build a community post-formal education.</span>
 		</header>
+		<img class="image" style="width: 100vw" src="images/final.png" alt="Art^2 app screenshots" />
+		<div class="box alt container">
 
-		<h2>Creating Art^2: The process</h2>
+		<section class="feature right">
+
+			<div class="image">
+				<video width="100%" height="100%" controls>
+					<source src="files/Art^2 Concept Video.mp4" type="video/mp4">
+				</video>
+			</div>
+			<div class="content">
+				<h3>High-fi Prototype and Demo</h3>
+				<p> View our: <br />
+					<a href="files/Assignment 8.pdf">slides</a> 
+					<a href="files/Assignment 8.pptx">(PPT)</a> <br/>
+					<a href="files/Assignment 4.pdf">app</a> <br/>
+					<a href="files/Assignment 4.pptx">README</a>
+					<br />
+					<a href="https://www.youtube.com/watch?v=kgT3nzMHrsY">Demo Video</a>
+					<a href="files/Art^2 Concept Video.mp4" download>(download)</a>
+				</p>
+			</div>
+		</section>
+		</div>
+
+
+		<h2 id="process">Creating Art^2: The process</h2>
 
 		<div class="box alt container">
 			<section class="feature left">
 				<img class="image" src="images/interview.png" alt="Interviewee drawing at a table" />
 				<div class="content">
 					<h3>Needfinding</h3>
-					<p>View our: <a href="files/Assignment 1.pdf">slides</a>
+					<p>View our: <a href="files/Assignment 1.pdf">slides</a> <a href="files/Assignment 1.pptx">(PPT)</a>
 					</p>
 				</div>
 			</section>
@@ -57,7 +82,7 @@
 				<img class="image" src="images/experiencePrototype.jpg" alt="Pictures of farm drawn by interviewee" />
 				<div class="content">
 					<h3>Additional Needfinding, POVs, HMWs, Brainstorming & Experience Prototypes</h3>
-					<p>View our: <a href="files/Assignment 2.pdf">slides</a>
+					<p>View our: <a href="files/Assignment 2.pdf">slides</a> <a href="files/Assignment 2.pptx">(PPT)</a>
 					</p>
 				</div>
 			</section>
@@ -72,7 +97,10 @@
 					<h3>Concept Video</h3>
 					<p> View our: <br />
 						<a href="files/Assignment 4.pdf">slides</a>
+						<a href="files/Assignment 4.pptx">(PPT)</a>
 						<br />
+						<a href="https://www.youtube.com/watch?v=kgT3nzMHrsY">YouTube</a>
+						<a href="files/Art^2 Concept Video.mp4" download>(download)</a>
 					</p>
 				</div>
 			</section>
@@ -80,7 +108,9 @@
 				<img class="image" src="images/lofi.JPG" alt="Conducting lofi prototype testing outside" />
 				<div class="content">
 					<h3>Sketching, Low-Fi Prototyping & Usability Testing</h3>
-					<p>View our: <a href="files/Assignment 5.pdf">slides</a>
+					<p>View our: <br />
+						<a href="files/Assignment 5.pdf">slides</a>
+						<a href="files/Assignment 5.pptx">(PPT)</a>
 					</p>
 				</div>
 			</section>
@@ -94,6 +124,7 @@
 					<h3>Interactive Medium-fi Prototype</h3>
 					<p> View our: <br />
 						<a href="files/Assignment 6.pdf">slides</a>
+						<a href="files/Assignment 6.pptx">(PPT)</a>
 						<br />
 						<a
 							href="https://www.figma.com/proto/TwUsLeVFWRp8SHAPxEngMF/art%5E2?node-id=6-220&starting-point-node-id=6%3A220">Figma</a>
@@ -113,12 +144,13 @@
 				</div>
 			</section>
 			<section class="feature left" style="height:auto">
-				<img style="padding: 30px 0px" class="image" src="images/placeholder image.jpeg" alt="demo video" />
+				<img style="padding: 30px 0px" class="image" src="images/Poster.png" alt="Art^2 Poster" />
 				<div class="content">
 					<h3>Poster, Pitch & Demo Video</h3>
-					<p>View our: <a href="files/Assignment 9.pdf">slide</a>
-					<p>View our: <a href="files/Assignment 9.pdf">script</a>
-					<p>View our: <a href="files/Assignment 9.pdf">poster</a>
+					<p>View our: <br />
+						<a href="files/Pitch Slide.pdf">slides</a> <a href="files/Pitch Slide.pptx">(PPT)</a> <br />
+						<a href="files/Pitch Script.pdf">script</a> <a href="files/Pitch Script.docx">(DOC)</a><br />
+						<a href="files/Poster.pdf">poster</a> <a href="files/Poster.pptx">(PPT)</a><br />
 					</p>
 				</div>
 			</section>
@@ -126,7 +158,7 @@
 				<img style="padding: 30px 0px" class="image" src="images/placeholder image.jpeg" alt="poster" />
 				<div class="content">
 					<h3>Final Report </h3>
-					<p>View our: <a href="files/Assignment 9.pdf">report</a>
+					<p>View our: <a href="files/Assignment 9.pdf">report</a><a href="files/Assignment 9.pdf">(DOC)</a>
 					</p>
 				</div>
 			</section>
@@ -137,25 +169,29 @@
 		<div id="team" class="box container">
 			<h1>Meet the team</h1>
 			<div id="team-flex" style="display:flex; max-width:100%; justify-content: space-around; gap:5%">
-				<span style="display:flex; flex-direction: column; align-items:center; flex-grow:1; flex-basis: 0; text-align: center;"><img
+				<span
+					style="display:flex; flex-direction: column; align-items:center; flex-grow:1; flex-basis: 0; text-align: center;"><img
 						style="border-radius: 100%; width:100%" src="images/becky.jpeg" alt="">
 					<h1 id="logo"><a href="https://www.linkedin.com/in/becky-m/"
 							style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Becky M.</a></h1>
 					<p>Designer/Developer</p>
 				</span>
-				<span style="display:flex; flex-direction: column; align-items:center; flex-grow:1; flex-basis: 0; text-align: center;"><img
+				<span
+					style="display:flex; flex-direction: column; align-items:center; flex-grow:1; flex-basis: 0; text-align: center;"><img
 						style="border-radius: 100%; width:100%" src="images/david.png" alt="">
 					<h1 id="logo"><a href="https://www.linkedin.com/in/david-castro-ramirez-4509a5214/"
 							style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">David C.</a></h1>
 					<p>Designer</p>
 				</span>
-				<span style="display:flex; flex-direction: column; align-items:center; flex-grow:1; flex-basis: 0; text-align: center;"><img
+				<span
+					style="display:flex; flex-direction: column; align-items:center; flex-grow:1; flex-basis: 0; text-align: center;"><img
 						style="border-radius: 100%; width:100%" src="images/leyth.jpeg" alt="">
 					<h1 id="logo"><a href="https://www.linkedin.com/in/leyth-toubassy/"
 							style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Leyth T.</a></h1>
 					<p>Designer/Developer</p>
 				</span>
-				<span style="display:flex; flex-direction: column; align-items:center; flex-grow:1; flex-basis: 0; text-align: center;"><img
+				<span
+					style="display:flex; flex-direction: column; align-items:center; flex-grow:1; flex-basis: 0; text-align: center;"><img
 						style="border-radius: 100%; width:100%" src="images/marie.jpeg" alt="">
 					<h1 id="logo"><a href="https://www.linkedin.com/in/marie-chu-b53390172/"
 							style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Marie C.</a></h1>
