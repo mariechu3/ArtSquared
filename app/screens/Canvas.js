@@ -76,6 +76,7 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
         uri: uri, name: name ? name : 'Untitiled', pixels: canvasData
       })
 
+
     }).catch(console.error);
   };
 
@@ -108,6 +109,9 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
 
   /**********************************************/
 
+  updateCanvas = () => {
+
+  }
 
   rowCol2Index = (row, col) => {
     return (NUM_COLS * row) + col
@@ -403,7 +407,7 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
                 <TouchableOpacity
                   style={{ backgroundColor: "#d9d9d9", borderRadius: 5, padding: 10 }}
                   onPress={() => {
-                    navigation.navigate('Share', { showModal: false, selectedDrawing: { uri: uri, name: name ? name : 'Untitiled', pixels: null } });
+                    navigation.navigate('Share', { showModal: false, selectedDrawing: { uri: uri, name: name ? name : 'Untitiled', pixels: canvasData } });
                     setPreviewModalVisible(false)
                   }}>
                   <Icon
@@ -415,7 +419,7 @@ export default Canvas = ({ addDrawing, navigation, route }) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={{ backgroundColor: "#d9d9d9", borderRadius: 5, padding: 10 }}
-                  onPress={() => { navigation.navigate('Collaborate', { showModal: false, selectedDrawing: { uri: uri, name: name ? name : 'Untitiled', pixels: null } }); setPreviewModalVisible(false) }}>
+                  onPress={() => { navigation.navigate('Collaborate', { showModal: false, selectedDrawing: { uri: uri, name: name ? name : 'Untitiled', pixels: canvasData } }); setPreviewModalVisible(false) }}>
                   <Icon
                     size={30}
                     type="ionicon"
